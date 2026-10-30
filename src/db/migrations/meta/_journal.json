@@ -15,6 +15,20 @@
       "when": 1793353322883,
       "tag": "0001_security",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793356109544,
+      "tag": "0002_kind_energizer",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793356169052,
+      "tag": "0003_auth_partner_security",
+      "breakpoints": true
     }
   ]
 }

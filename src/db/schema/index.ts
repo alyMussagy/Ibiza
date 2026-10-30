@@ -8,6 +8,7 @@ import {
   uniqueIndex,
   integer,
   check,
+  jsonb,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 export const approvalStatus = pgEnum("approval_status", [

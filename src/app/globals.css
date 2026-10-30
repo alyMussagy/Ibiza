@@ -998,3 +998,216 @@ p {
 a.bg-primary {
   color: #fff;
 }
+.brand {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: 166px;
+  height: 38px;
+  overflow: hidden;
+  letter-spacing: normal;
+}
+.brand .brand-art {
+  position: absolute;
+  width: 206px;
+  height: 103px;
+  max-width: none;
+  left: -18px;
+  top: -33px;
+}
+.account-entry {
+  font-size: 12px;
+  font-weight: 650;
+  white-space: nowrap;
+  color: #c91c47;
+}
+.header-inner {
+  gap: 20px;
+}
+.desktop-nav {
+  gap: 20px;
+}
+.account-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 75px;
+  padding: 60px 0 85px;
+  align-items: start;
+  min-height: 75vh;
+}
+.account-story {
+  background: #fff0f2;
+  padding: 50px 40px;
+  border-radius: 24px;
+  min-height: 460px;
+}
+.account-story h1 {
+  font-size: 48px;
+  line-height: 1.12;
+  font-weight: 580;
+  margin: 30px 0 22px;
+}
+.account-story p {
+  font-size: 15px;
+  color: #717171;
+  margin-bottom: 35px;
+}
+.account-panel {
+  border: 1px solid #ddd;
+  border-radius: 24px;
+  padding: 35px;
+  background: white;
+}
+.account-panel h2 {
+  font-size: 30px;
+  line-height: 1.2;
+  margin: 15px 0;
+}
+.account-panel > p {
+  font-size: 14px;
+  color: #717171;
+  margin: 12px 0;
+}
+.account-form {
+  display: grid;
+  gap: 20px;
+  margin-top: 28px;
+}
+.account-form label {
+  font-size: 13px;
+  font-weight: 600;
+  display: grid;
+  gap: 9px;
+}
+.account-form input,
+.account-form select,
+.account-form textarea {
+  padding: 13px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 400;
+  width: 100%;
+  background: white;
+  color: #222;
+}
+.account-form small {
+  font-size: 11px;
+  font-weight: 400;
+  color: #717171;
+}
+.account-form textarea {
+  resize: vertical;
+}
+.account-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 13px;
+  margin-top: 25px;
+}
+.account-links a {
+  color: #c91c47;
+  font-weight: 600;
+}
+.form-error {
+  padding: 14px;
+  background: #fff0f2;
+  color: #9b1536;
+  font-size: 13px;
+  border-radius: 10px;
+}
+.form-success {
+  padding: 14px;
+  background: #e8f5ed;
+  color: #21603d;
+  font-size: 13px;
+  border-radius: 10px;
+}
+.partner-form {
+  max-width: 650px;
+}
+.status-badge {
+  font-size: 11px;
+  background: #fff0f2;
+  color: #9b1536;
+  padding: 7px 12px;
+  border-radius: 24px;
+  display: inline-block;
+}
+.admin-applications {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+}
+.admin-applications p {
+  overflow-wrap: anywhere;
+}
+.footer-main .brand {
+  width: 166px;
+  height: 38px;
+}
+@media (max-width: 1000px) {
+  .desktop-nav {
+    gap: 13px;
+  }
+  .account-page {
+    gap: 28px;
+  }
+  .account-story {
+    padding: 35px 25px;
+  }
+  .account-story h1 {
+    font-size: 38px;
+  }
+  .account-entry {
+    font-size: 10px;
+  }
+}
+@media (max-width: 760px) {
+  .account-page {
+    grid-template-columns: 1fr;
+    padding-top: 25px;
+    gap: 25px;
+  }
+  .account-story {
+    min-height: 0;
+    padding: 30px;
+  }
+  .account-story h1 {
+    font-size: 35px;
+    margin: 20px 0;
+  }
+  .account-story p {
+    margin-bottom: 20px;
+  }
+  .account-panel {
+    padding: 25px;
+  }
+  .account-panel h2 {
+    font-size: 27px;
+  }
+  .admin-applications {
+    grid-template-columns: 1fr;
+  }
+  .account-entry {
+    margin-left: auto;
+  }
+  .header-inner {
+    gap: 15px;
+  }
+  .brand {
+    width: 145px;
+    height: 34px;
+  }
+  .brand .brand-art {
+    width: 182px;
+    height: 91px;
+    left: -16px;
+    top: -29px;
+  }
+  .footer-main .brand {
+    width: 145px;
+    height: 34px;
+  }
+}
