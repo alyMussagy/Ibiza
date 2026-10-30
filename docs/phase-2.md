@@ -19,9 +19,9 @@ Os 12 testes de navegador passaram sobre o build de produção, em desktop e vie
 
 ## Estado externo e pendências
 
-O utilizador escolheu criar o Supabase noutra conta; não foi criado projecto nem aplicado SQL na organização anteriormente aberta. URL/chave publicável, configuração de Auth/templates, SMTP e primeiro administrador ainda dependem do novo projecto. Nenhum email real foi enviado pelo agente. Nenhuma palavra-passe foi recolhida no chat.
+O projecto Ibiza (zxgdetzrlpbgnxrjvfny) foi configurado na nova conta: 11 tabelas com RLS, quatro migrations e duas RPCs verificadas no serviço real. Site URL, callbacks, confirmação obrigatória e mínimo de 12 caracteres estão configurados. Consultas anónimas a dados privados foram recusadas pela API. SMTP próprio, testes com contas controladas e primeiro administrador continuam pendentes. Nenhum email foi enviado pelo agente e nenhuma palavra-passe foi recolhida no chat.
 
-Após ligar o projecto: executar o roteiro de aceitação em `supabase-setup.md` com utilizadores controlados e um administrador separado; testar expiração/refresh, confirmação e recuperação por email. Antes de lançamento público: SMTP, protecção anti-abuso, política completa de privacidade e contacto de suporte, observabilidade e revisão de segurança.
+Aceitação pendente: executar o roteiro de aceitação em `supabase-setup.md` com utilizadores controlados e um administrador separado; testar expiração/refresh, confirmação e recuperação por email. Antes de lançamento público: SMTP, protecção anti-abuso, política completa de privacidade e contacto de suporte, observabilidade e revisão de segurança.
 
 Limites desta fase: candidatura inicial e decisão; sem convites/gestão de equipas, reenvio de candidaturas rejeitadas, suspensão pela interface, paginação além das últimas 100 candidaturas, upload de documentos ou anúncios comerciais. Estes limites são visíveis nas áreas de gestão; não existem pagamentos ou bilhetes reais.
 

@@ -15,6 +15,6 @@ const body = migrations
 mkdirSync("docs/setup", { recursive: true });
 writeFileSync(
   "docs/setup/supabase-bootstrap.sql",
-  prelude + body + "\nCOMMIT;\n",
+  prelude + body + "\nALTER TABLE drizzle.__drizzle_migrations ENABLE ROW LEVEL SECURITY;\nREVOKE ALL ON drizzle.__drizzle_migrations FROM anon, authenticated;\nCOMMIT;\n",
 );
 console.log("Bootstrap SQL gerado. Apenas para um projecto Supabase novo.");

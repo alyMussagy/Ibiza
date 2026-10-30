@@ -69,4 +69,20 @@ O template acima não é executável até substituir o UUID. Não confiar em use
 5. Repetir uma decisão deve falhar sem duplicar auditoria. Utilizador normal não acede a `/admin/parceiros` nem consegue invocar a RPC de revisão.
 6. Recarregar rotas privadas para validar renovação de cookies e testar expiração de sessão. Confirmar `Cache-Control: private, no-store`.
 
-Referências: [SSR Next.js](https://supabase.com/docs/guides/auth/server-side/creating-a-client), [palavras-passe e recuperação](https://supabase.com/docs/guides/auth/passwords), [templates de email](https://supabase.com/docs/guides/auth/auth-email-templates). Ainda não foram aplicadas alterações num projecto Supabase real nesta fase de implementação.
+Referências: [SSR Next.js](https://supabase.com/docs/guides/auth/server-side/creating-a-client), [palavras-passe e recuperação](https://supabase.com/docs/guides/auth/passwords), [templates de email](https://supabase.com/docs/guides/auth/auth-email-templates). O estado real está registado abaixo.
+
+## Estado real — 30/10/2026
+
+Projecto `zxgdetzrlpbgnxrjvfny` (Ibiza). URL e chave publicável guardados em `.env.local`, ignorado pelo Git. Build de produção concluído.
+
+Instalação concluída pelo SQL Editor após confirmar base vazia: 11 tabelas públicas com RLS, 4 migrations Drizzle e 2 RPCs de parceiros. O journal interno também tem RLS e acesso revogado a anon/authenticated.
+
+Auth: Site URL http://127.0.0.1:3000, os dois callbacks exactos da secção 4 guardados, Email/Password activo, confirmação obrigatória e mínimo de 12 caracteres.
+
+Templates padrão mantidos: o painel exige SMTP próprio ou plano Pro para personalização. O callback PKCE suporta os templates padrão; abrir a confirmação no mesmo navegador onde se pediu o registo/recuperação.
+
+API real verificada: organizações públicas HTTP 200; contactos privados e papéis administrativos recusam acesso anónimo HTTP 401. Nenhuma conta de teste criada nem email enviado.
+
+Pendências: SMTP próprio, testes com contas controladas e identificação da primeira conta verificada para administrador. Não atribuir super_admin através de metadados do utilizador.
+
+`supabase init` concluído. A CLI ainda precisa de login na conta proprietária para `link`; a instalação via SQL Editor já está concluída. As migrations continuam geridas pelo Drizzle. Não repetir bootstrap nem substituir por `supabase db push`.

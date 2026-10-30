@@ -285,4 +285,6 @@ CREATE TRIGGER partner_details_updated BEFORE UPDATE ON public.partner_details F
 
 INSERT INTO drizzle.__drizzle_migrations(hash,created_at) VALUES('39c6f42d37593e28c3a8b102b3da3ab74d41de1f96b7dc189de10d936d70316b',1793356169052);
 
+ALTER TABLE drizzle.__drizzle_migrations ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON drizzle.__drizzle_migrations FROM anon, authenticated;
 COMMIT;
