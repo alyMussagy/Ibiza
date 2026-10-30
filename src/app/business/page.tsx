@@ -11,8 +11,8 @@ export default function Business() {
         Ligado a novas possibilidades.
       </h1>
       <p className="lead">
-        Uma futura área de gestão para alojamentos, restaurantes, experiências e
-        organizadores de eventos.
+        Uma área para apresentar o teu negócio e acompanhar a aprovação pela
+        equipa IBIZA.
       </p>
       <div className="info-grid">
         {[
@@ -43,12 +43,17 @@ export default function Business() {
         })}
       </div>
       <p className="notice">
-        Em preparação. O registo de parceiros e a autenticação fazem parte da
-        Fase 2. Ainda não recolhemos candidaturas.
+        Cria uma conta, confirma o teu email e apresenta o teu negócio. Todos os
+        parceiros precisam de aprovação antes de publicar serviços.
       </p>
-      <Link href="/" className="text-link">
-        Voltar à descoberta →
-      </Link>
+      <div className="account-links">
+        <Link href="/business/candidatura" className="text-link">
+          Apresentar o meu negócio →
+        </Link>
+        <Link href="/business/painel">
+          Já sou parceiro · Acompanhar candidatura
+        </Link>
+      </div>
     </main>
   );
 }
