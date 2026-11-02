@@ -160,9 +160,9 @@ export default async function Profile({
             </span>
             <h2>Administração</h2>
             <Button asChild variant="outline">
-              <Link href="/admin/parceiros">
+              <Link href="/admin">
                 <ShieldCheck size={18} aria-hidden="true" />
-                Rever candidaturas
+                Abrir painel administrativo
                 <ArrowUpRight size={16} aria-hidden="true" />
               </Link>
             </Button>

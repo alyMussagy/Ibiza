@@ -1,3 +1,4 @@
+import { AdminNav } from "@/components/admin/navigation";
 import { PhotoGallery } from "@/components/marketplace/photo-gallery";
 import Link from "next/link";
 import { ArrowLeft, ClipboardCheck } from "lucide-react";
@@ -6,7 +7,7 @@ import { ListingReviewForm } from "@/components/forms/listing-form";
 import { Button } from "@/components/ui/button";
 export const metadata = { title: "Revisão de anúncios" };
 export default async function ListingModeration() {
-  const { supabase } = await requireAdmin();
+  const { supabase } = await requireAdmin("/admin/anuncios");
   const { data: items, error } = await supabase
     .from("listings")
     .select("*,listing_photos(id,alt,position)")
@@ -17,6 +18,7 @@ export default async function ListingModeration() {
     throw new Error("Não foi possível carregar os anúncios para revisão.");
   return (
     <main id="main" className="shell category-page">
+      <AdminNav current="/admin/anuncios" />
       <span className="eyebrow coral">ADMINISTRAÇÃO</span>
       <h1>Ofertas prontas para revisão.</h1>
       <p className="lead">

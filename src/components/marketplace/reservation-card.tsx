@@ -21,26 +21,30 @@ export type ReservationRow = {
 export function ReservationCard({
   item,
   manager = false,
+  readOnly = false,
 }: {
   item: ReservationRow;
   manager?: boolean;
+  readOnly?: boolean;
 }) {
   const status = reservationStatus(item.status, item.expires_at);
   const future = new Date(item.starts_at).getTime() > Date.now();
   const ended = new Date(item.ends_at).getTime() <= Date.now();
-  const choices = manager
-    ? status === "pending" && future
-      ? ["confirmed", "rejected"]
-      : status === "confirmed"
-        ? future
-          ? ["cancelled"]
-          : ended
-            ? ["completed"]
-            : []
-        : []
-    : future && ["pending", "confirmed"].includes(status)
-      ? ["cancelled"]
-      : [];
+  const choices = readOnly
+    ? []
+    : manager
+      ? status === "pending" && future
+        ? ["confirmed", "rejected"]
+        : status === "confirmed"
+          ? future
+            ? ["cancelled"]
+            : ended
+              ? ["completed"]
+              : []
+          : []
+      : future && ["pending", "confirmed"].includes(status)
+        ? ["cancelled"]
+        : [];
   return (
     <article>
       <span className="status-badge">
@@ -48,7 +52,7 @@ export function ReservationCard({
       </span>
       <h2>{item.listing_title}</h2>
       <p>Referência: {item.id.slice(0, 8).toUpperCase()}</p>
-      {manager && <p>Cliente: {item.customer_name}</p>}
+      {(manager || readOnly) && <p>Cliente: {item.customer_name}</p>}
       <p>
         {formatPeriod(item.starts_at)} → {formatPeriod(item.ends_at)}
       </p>

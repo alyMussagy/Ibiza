@@ -14,8 +14,8 @@ export async function requireUser(next = "/perfil") {
     redirect(`/login?next=${encodeURIComponent(safeNext(next))}`);
   return { supabase, user };
 }
-export async function requireAdmin() {
-  const session = await requireUser("/admin/parceiros");
+export async function requireAdmin(next = "/admin") {
+  const session = await requireUser(next);
   const { data, error } = await session.supabase
     .from("platform_roles")
     .select("role")
