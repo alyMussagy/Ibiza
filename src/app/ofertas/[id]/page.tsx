@@ -1,7 +1,8 @@
+import { FavoriteButton } from "@/components/forms/favorite-button";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { z } from "zod";
-import { ArrowLeft, MapPin, Store } from "lucide-react";
+import { ArrowLeft, MapPin, Store, Heart } from "lucide-react";
 import { createServerSupabase, hasSupabaseConfig } from "@/lib/supabase/server";
 import { PhotoGallery } from "@/components/marketplace/photo-gallery";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,19 @@ export default async function OfferDetail({
     .maybeSingle();
   if (error) throw new Error("Não foi possível consultar esta oferta.");
   if (!item) notFound();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const favorite = user
+    ? await supabase
+        .from("favorites")
+        .select("listing_id")
+        .eq("profile_id", user.id)
+        .eq("listing_id", id)
+        .maybeSingle()
+    : { data: null, error: null };
+  if (favorite.error)
+    throw new Error("Não foi possível consultar os favoritos.");
   const org = Array.isArray(item.organizations)
     ? item.organizations[0]
     : item.organizations;
@@ -41,6 +55,16 @@ export default async function OfferDetail({
       <p className="lead">
         <MapPin size={20} aria-hidden="true" /> {item.location}
       </p>
+      {user?.email_confirmed_at ? (
+        <FavoriteButton id={id} saved={!!favorite.data} />
+      ) : (
+        <Button asChild variant="outline">
+          <Link href="/login?next=/ofertas">
+            <Heart size={18} aria-hidden="true" />
+            Entrar para guardar
+          </Link>
+        </Button>
+      )}
       <PhotoGallery photos={item.listing_photos} />
       <div className="offer-details">
         <section>

@@ -30,6 +30,8 @@ export const config = {
     "/recuperar-conta",
     "/actualizar-palavra-passe",
     "/perfil",
+    "/favoritos",
+    "/ofertas/:path*",
     "/auth/:path*",
     "/business/:path*",
     "/admin/:path*",

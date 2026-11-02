@@ -14,6 +14,8 @@ export function safeNext(value: unknown, fallback = "/comecar") {
   return typeof value === "string" &&
     [
       "/perfil",
+      "/favoritos",
+      "/ofertas",
       "/comecar",
       "/business/candidatura",
       "/business/painel",

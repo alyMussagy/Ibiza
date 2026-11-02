@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  Heart,
   Compass,
   ArrowUpRight,
   UserRound,
@@ -84,10 +85,10 @@ export default async function Profile({
           <h2>As tuas próximas viagens</h2>
           <p>
             O IBIZA está a preparar as reservas. Por enquanto, podes descobrir
-            destinos, alojamentos e experiências no catálogo de demonstração.
+            ofertas de parceiros e guardar os teus lugares favoritos.
           </p>
           <Button asChild variant="outline">
-            <Link href="/explorar">
+            <Link href="/ofertas">
               <Compass size={18} aria-hidden="true" />
               Explorar o catálogo
               <ArrowUpRight size={16} aria-hidden="true" />
@@ -95,6 +96,23 @@ export default async function Profile({
           </Button>
         </article>
       </div>
+      <section className="profile-plan">
+        <div>
+          <span className="eyebrow coral">À TUA ESPERA</span>
+          <h2>Os lugares que queres conhecer.</h2>
+          <p>
+            Reúne os teus favoritos e volta a eles quando planeares a próxima
+            saída.
+          </p>
+        </div>
+        <Button asChild variant="outline">
+          <Link href="/favoritos">
+            <Heart size={20} aria-hidden="true" />
+            Ver os meus favoritos
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </Button>
+      </section>
       {(error || p.notice) && (
         <p className="notice">
           {p.notice === "sem-permissao"
