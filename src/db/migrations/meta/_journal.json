@@ -36,6 +36,13 @@
       "when": 1793621161902,
       "tag": "0004_profile_update",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793625996089,
+      "tag": "0005_listing_management",
+      "breakpoints": true
     }
   ]
 }

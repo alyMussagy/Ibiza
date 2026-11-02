@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { Store } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { requireAdmin } from "@/features/auth/session";
 import { ReviewForm } from "@/components/forms/review-form";
 import { statusLabels } from "@/features/partners/validation";
@@ -24,6 +27,12 @@ export default async function PartnersAdmin() {
     throw new Error("Não foi possível carregar os negócios.");
   return (
     <main id="main" className="shell category-page">
+      <Button asChild variant="outline">
+        <Link href="/admin/anuncios">
+          <Store size={18} />
+          Rever anúncios
+        </Link>
+      </Button>
       <span className="eyebrow coral">IBIZA ADMIN</span>
       <h1>Candidaturas de parceiros.</h1>
       <p className="lead">

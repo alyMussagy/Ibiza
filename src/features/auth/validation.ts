@@ -17,6 +17,8 @@ export function safeNext(value: unknown, fallback = "/comecar") {
       "/comecar",
       "/business/candidatura",
       "/business/painel",
+      "/business/anuncios",
+      "/admin/anuncios",
       "/admin/parceiros",
       "/actualizar-palavra-passe",
     ].includes(value)

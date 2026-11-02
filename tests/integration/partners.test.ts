@@ -22,6 +22,7 @@ beforeAll(async () => {
     "0002_kind_energizer.sql",
     "0003_auth_partner_security.sql",
     "0004_profile_update.sql",
+    "0005_listing_management.sql",
   ])
     await db.exec(
       readFileSync(
@@ -188,4 +189,124 @@ it("edição de perfil só altera o próprio nome e mantém permissões intactas
   await expect(
     db.query("SELECT public.update_own_profile('Nome Novo')"),
   ).rejects.toThrow();
+});
+let listingId: string;
+it("anúncios exigem gestor aprovado e ficam privados antes da revisão", async () => {
+  await asUser(bob);
+  await expect(
+    db.query(
+      "SELECT public.save_listing(NULL,$1,1,'Passeio na baía','Um passeio de barco com guia local e duração de duas horas.','experiencias','Tofo',150000,'pessoa',true)",
+      [organization],
+    ),
+  ).rejects.toThrow("Approved partner manager");
+  await asUser(alice);
+  const result = await db.query<{ id: string }>(
+    "SELECT public.save_listing(NULL,$1,1,'Passeio na baía','Um passeio de barco com guia local e duração de duas horas.','experiencias','Tofo',150000,'pessoa',true) AS id",
+    [organization],
+  );
+  listingId = result.rows[0].id;
+  expect(
+    (
+      await db.query("SELECT review_status FROM public.listings WHERE id=$1", [
+        listingId,
+      ])
+    ).rows,
+  ).toEqual([{ review_status: "pending" }]);
+  await expect(
+    db.query("UPDATE public.listings SET status='published' WHERE id=$1", [
+      listingId,
+    ]),
+  ).rejects.toThrow();
+  await asUser(bob);
+  expect(
+    (await db.query("SELECT id FROM public.listings WHERE id=$1", [listingId]))
+      .rows,
+  ).toHaveLength(0);
+  await db.exec("RESET ROLE; SET ROLE anon");
+  expect(
+    (await db.query("SELECT id FROM public.listings WHERE id=$1", [listingId]))
+      .rows,
+  ).toHaveLength(0);
+});
+it("revisão verifica versão e publicação, edição retira a oferta do público", async () => {
+  await asUser(alice);
+  await expect(
+    db.query(
+      "SELECT public.review_listing($1,1,'approved','Oferta validada')",
+      [listingId],
+    ),
+  ).rejects.toThrow("Administrator required");
+  await asUser(admin);
+  await expect(
+    db.query(
+      "SELECT public.review_listing($1,2,'approved','Oferta validada')",
+      [listingId],
+    ),
+  ).rejects.toThrow("Listing changed");
+  await db.query(
+    "SELECT public.review_listing($1,1,'approved','Oferta validada')",
+    [listingId],
+  );
+  await expect(
+    db.query(
+      "SELECT public.review_listing($1,1,'approved','Oferta validada')",
+      [listingId],
+    ),
+  ).rejects.toThrow("Listing not pending");
+  await db.exec("RESET ROLE; SET ROLE anon");
+  expect(
+    (await db.query("SELECT id FROM public.listings WHERE id=$1", [listingId]))
+      .rows,
+  ).toHaveLength(1);
+  await asUser(alice);
+  const query =
+    "SELECT public.save_listing($1,$2,$3,'Passeio actualizado','Um passeio de barco com guia local e duração de três horas.','experiencias','Tofo',170000,'pessoa',true)";
+  await expect(db.query(query, [listingId, organization, 1])).rejects.toThrow(
+    "Listing changed",
+  );
+  await db.query(query, [listingId, organization, 2]);
+  await db.exec("RESET ROLE; SET ROLE anon");
+  expect(
+    (await db.query("SELECT id FROM public.listings WHERE id=$1", [listingId]))
+      .rows,
+  ).toHaveLength(0);
+  await asUser(admin);
+  await expect(
+    db.query(
+      "SELECT public.review_listing($1,2,'approved','Oferta validada')",
+      [listingId],
+    ),
+  ).rejects.toThrow("Listing changed");
+  await db.query(
+    "SELECT public.review_listing($1,3,'rejected','Explicar melhor o percurso')",
+    [listingId],
+  );
+  expect(
+    (
+      await db.query(
+        "SELECT * FROM public.audit_logs WHERE action='listing.reviewed'",
+      )
+    ).rows,
+  ).toHaveLength(2);
+});
+it("RPC de anúncio rejeita valores inválidos e publicação por parceiro suspenso", async () => {
+  await asUser(alice);
+  await expect(
+    db.query(
+      "SELECT public.save_listing(NULL,$1,1,NULL,'Descrição longa suficiente para validação de anúncio.','experiencias','Tofo',-1,'pessoa',true)",
+      [organization],
+    ),
+  ).rejects.toThrow("Invalid listing");
+  await db.exec("RESET ROLE");
+  await db.query(
+    "UPDATE public.organizations SET approval='suspended' WHERE id=$1",
+    [organization],
+  );
+  await asUser(alice);
+  await expect(
+    db.query(
+      "SELECT public.save_listing(NULL,$1,1,'Novo passeio','Descrição longa suficiente para validação de anúncio.','experiencias','Tofo',100,'pessoa',true)",
+      [organization],
+    ),
+  ).rejects.toThrow("Approved partner manager");
 });

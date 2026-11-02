@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Store } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { requireUser } from "@/features/auth/session";
 import { statusLabels } from "@/features/partners/validation";
 export const metadata = { title: "Área de parceiro" };
@@ -41,7 +43,7 @@ export default async function PartnerDashboard() {
               <h2>{org.name}</h2>
               <p>
                 {org.approval === "approved"
-                  ? "Parceiro aprovado. A gestão de anúncios será disponibilizada na Fase 3."
+                  ? "Parceiro aprovado. Já podes preparar e enviar as tuas ofertas para publicação."
                   : "Os serviços deste negócio não podem ser publicados enquanto a aprovação não estiver activa."}
               </p>
               {applications
@@ -57,6 +59,12 @@ export default async function PartnerDashboard() {
         </div>
       )}
       <div className="account-links">
+        <Button asChild>
+          <Link href="/business/anuncios">
+            <Store size={18} />
+            Gerir anúncios
+          </Link>
+        </Button>
         <Link href="/business/candidatura" className="text-link">
           Apresentar um negócio →
         </Link>

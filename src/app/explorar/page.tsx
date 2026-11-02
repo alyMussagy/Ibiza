@@ -18,6 +18,9 @@ export default async function Explore({
     <main id="main" className="shell category-page">
       <span className="eyebrow coral">A VIAGEM COMEÇA AQUI</span>
       <h1>Encontra o teu próximo lugar.</h1>
+      <Link href="/ofertas" className="text-link">
+        Consultar ofertas de parceiros aprovados →
+      </Link>
       <SearchForm key={`${q}:${category}`} query={q} category={category} />
       <p className="notice">
         {listings.length} resultados de demonstração · Sem disponibilidade
