@@ -34,9 +34,9 @@ export function DiscoveryJourney() {
           ? "Escolhe uma categoria para começar."
           : "Podes escolher um lugar ou explorar toda a região."}
       </p>
-      <form action="/explorar" method="get">
+      <form action="/ofertas" method="get">
         <input type="hidden" name="categoria" value={category} />
-        <input type="hidden" name="q" value={destination} />
+        <input type="hidden" name="local" value={destination} />
         {step === 1 ? (
           <fieldset className="journey-options">
             <legend className="sr-only">Tipo de plano</legend>
@@ -80,7 +80,7 @@ export function DiscoveryJourney() {
               Voltar
             </Button>
           ) : (
-            <Link href="/explorar" className="text-link">
+            <Link href="/ofertas" className="text-link">
               Prefiro explorar tudo
             </Link>
           )}
@@ -103,8 +103,8 @@ export function DiscoveryJourney() {
         </div>
       </form>
       <p className="journey-note">
-        Estás a explorar o catálogo de demonstração. As reservas e os pagamentos
-        ainda não estão disponíveis.
+        Descobre ofertas publicadas por parceiros aprovados. Consulta a
+        disponibilidade antes de enviar o teu pedido.
       </p>
       <div className="journey-footer">
         <Link href="/perfil">A minha conta</Link>

@@ -1,3 +1,4 @@
+import { PartnerStatusForm } from "@/components/forms/partner-status-form";
 import { AdminNav, AdminPagination } from "@/components/admin/navigation";
 import { adminPage, adminHref } from "@/features/admin/filters";
 import { Search } from "lucide-react";
@@ -107,6 +108,17 @@ export default async function PartnersAdmin({
                   </p>
                   <p>{d.description}</p>
                 </>
+              )}
+              {["approved", "suspended"].includes(
+                orgs?.find((o) => o.id === a.organization_id)?.approval ?? "",
+              ) && (
+                <PartnerStatusForm
+                  id={a.organization_id}
+                  active={
+                    orgs?.find((o) => o.id === a.organization_id)?.approval ===
+                    "approved"
+                  }
+                />
               )}
               {a.status === "pending" ? (
                 <ReviewForm id={a.id} />

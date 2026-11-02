@@ -28,13 +28,19 @@ export async function createSlot(
     return {
       error: "Indica um intervalo de datas válido, no horário de Moçambique.",
     };
-  const { error } = await supabase.rpc("create_availability", {
-    target_listing: p.data.listingId,
-    period_start: start,
-    period_end: end,
-    unit_capacity: p.data.capacity,
-    unit_price: p.data.price,
-  });
+  const { error } = await supabase.rpc(
+    form.has("categoryName") ? "create_ticket_category" : "create_availability",
+    {
+      ...(form.has("categoryName")
+        ? { category_name: String(form.get("categoryName")) }
+        : {}),
+      target_listing: p.data.listingId,
+      period_start: start,
+      period_end: end,
+      unit_capacity: p.data.capacity,
+      unit_price: p.data.price,
+    },
+  );
   if (error)
     return {
       error:

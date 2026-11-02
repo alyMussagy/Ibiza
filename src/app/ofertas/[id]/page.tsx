@@ -1,3 +1,4 @@
+import { StayRequestForm } from "@/components/forms/stay-forms";
 import { randomUUID } from "node:crypto";
 import { ReservationRequestForm } from "@/components/forms/reservation-forms";
 import { FavoriteButton } from "@/components/forms/favorite-button";
@@ -46,7 +47,16 @@ export default async function OfferDetail({
   });
   if (availability.error && availability.error.code !== "PGRST202")
     throw new Error("Não foi possível consultar a disponibilidade.");
-  const periods = availability.data ?? [];
+  const labels =
+    item.category === "eventos"
+      ? await supabase.rpc("event_categories", { target_listing: id })
+      : { data: [] };
+  const periods = (availability.data ?? []).map((p: { id: string }) => ({
+    ...p,
+    category_name: labels.data?.find(
+      (c: { slot_id: string }) => c.slot_id === p.id,
+    )?.name,
+  }));
   const org = Array.isArray(item.organizations)
     ? item.organizations[0]
     : item.organizations;
@@ -91,7 +101,18 @@ export default async function OfferDetail({
             antes do envio do pedido. Sem pagamento online.
           </p>
           <h3>Escolhe quando queres ir</h3>
-          {periods.length ? (
+          {item.category === "estadias" ? (
+            user?.email_confirmed_at ? (
+              <StayRequestForm id={id} requestKey={randomUUID()} />
+            ) : (
+              <Button asChild>
+                <Link href="/login?next=/ofertas">
+                  <Store size={18} />
+                  Entrar para escolher datas
+                </Link>
+              </Button>
+            )
+          ) : periods.length ? (
             user?.email_confirmed_at ? (
               <ReservationRequestForm
                 periods={periods}

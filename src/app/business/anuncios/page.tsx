@@ -1,3 +1,4 @@
+import { ListingOperations } from "@/components/forms/listing-operations";
 import { PhotoGallery } from "@/components/marketplace/photo-gallery";
 import { PhotoUpload } from "@/components/forms/photo-upload";
 import Link from "next/link";
@@ -93,6 +94,17 @@ export default async function Listings({
             <section>
               <h2>Fotografias</h2>
               <PhotoGallery photos={editing.listing_photos} />
+              <ListingOperations
+                key={editing.id + ":" + editing.revision}
+                id={editing.id}
+                revision={editing.revision}
+                photos={editing.listing_photos}
+                editable={
+                  editing.status === "draft" &&
+                  ["draft", "rejected"].includes(editing.review_status)
+                }
+                archived={editing.status === "archived"}
+              />
               {["draft", "rejected"].includes(editing.review_status) &&
               editing.listing_photos.length < 8 ? (
                 <PhotoUpload
@@ -119,7 +131,9 @@ export default async function Listings({
             {items?.map((i) => (
               <article key={i.id}>
                 <span className="status-badge">
-                  {reviewLabels[i.review_status]}
+                  {i.status === "archived"
+                    ? "Arquivado"
+                    : reviewLabels[i.review_status]}
                 </span>
                 <h2>{i.title}</h2>
                 <p>

@@ -60,6 +60,18 @@ export default async function PartnerDashboard() {
       )}
       <div className="account-links">
         <Button asChild variant="outline">
+          <Link href="/business/equipa">
+            <Store size={18} />
+            Gerir equipa
+          </Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link href="/business/scanner">
+            <Store size={18} />
+            Scanner de entradas
+          </Link>
+        </Button>
+        <Button asChild variant="outline">
           <Link href="/business/reservas">
             <CalendarDays size={18} />
             Gerir reservas

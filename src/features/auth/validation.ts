@@ -15,8 +15,12 @@ export function safeNext(value: unknown, fallback = "/comecar") {
     [
       "/perfil",
       "/favoritos",
+      "/notificacoes",
       "/reservas",
+      "/bilhetes",
       "/business/reservas",
+      "/business/scanner",
+      "/business/equipa",
       "/business/disponibilidade",
       "/ofertas",
       "/comecar",

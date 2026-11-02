@@ -1,3 +1,5 @@
+> Actualização de 02/11/2026: o estado actual e as validações estão em [operations-release.md](operations-release.md). Este documento descreve a implementação anterior.
+
 # Reservas por períodos definidos — implementação
 
 02/11/2026. Build e TypeScript passaram. Implementação em código; migration 0008 ainda não aplicada. Testes funcionais e de concorrência adiados a pedido do proprietário. Não apresentar esta implementação como validada para clientes reais.

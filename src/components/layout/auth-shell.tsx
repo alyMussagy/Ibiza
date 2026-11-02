@@ -28,7 +28,7 @@ export function AuthShell({
           Uma conta para descobrires Inhambane e fazeres parte da comunidade
           IBIZA.
         </p>
-        <Link href="/explorar" className="text-link">
+        <Link href="/ofertas" className="text-link">
           Continua a explorar →
         </Link>
       </section>

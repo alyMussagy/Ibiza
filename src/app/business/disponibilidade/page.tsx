@@ -1,3 +1,4 @@
+import { StayInventoryForm } from "@/components/forms/stay-forms";
 import Link from "next/link";
 import { ArrowLeft, CalendarPlus } from "lucide-react";
 import { requireUser } from "@/features/auth/session";
@@ -20,7 +21,7 @@ export default async function Availability() {
   const { data: listings, error } = ids.length
     ? await supabase
         .from("listings")
-        .select("id,title,organizations!inner(approval)")
+        .select("id,title,category,organizations!inner(approval)")
         .in("organization_id", ids)
         .eq("organizations.approval", "approved")
         .neq("category", "destinos")
@@ -43,13 +44,28 @@ export default async function Availability() {
     : { data: [], error: null };
   if (slotError)
     throw new Error("Não foi possível consultar a disponibilidade.");
+  const { data: nights, error: nightError } = listings?.some(
+    (l) => l.category === "estadias",
+  )
+    ? await supabase
+        .from("stay_nights")
+        .select("listing_id,night,capacity,price_minor")
+        .in(
+          "listing_id",
+          listings.filter((l) => l.category === "estadias").map((l) => l.id),
+        )
+        .gte("night", new Date(Date.now() + 7200000).toISOString().slice(0, 10))
+        .order("night")
+        .limit(365)
+    : { data: [], error: null };
+  if (nightError) throw new Error("Não foi possível consultar as noites.");
   const names = new Map((listings ?? []).map((l) => [l.id, l.title]));
   return (
     <main id="main" className="shell category-page">
       <span className="eyebrow coral">PLANEIA A TUA OPERAÇÃO</span>
       <h1>Datas e vagas.</h1>
       <p className="lead">
-        Define períodos fechados e o preço por unidade para cada oferta.
+        Gere períodos, categorias de bilhetes e inventário por noite.
       </p>
       <Button asChild variant="outline">
         <Link href="/business/reservas">
@@ -59,10 +75,29 @@ export default async function Availability() {
       </Button>
       {listings?.length ? (
         <section className="account-card">
-          <h2>
-            <CalendarPlus size={24} /> Novo período
-          </h2>
-          <AvailabilityForm listings={listings} />
+          {listings.some(
+            (l) => !["eventos", "estadias"].includes(l.category),
+          ) && (
+            <>
+              <h2>
+                <CalendarPlus size={24} /> Novo período
+              </h2>
+              <AvailabilityForm
+                listings={listings.filter(
+                  (l) => l.category !== "eventos" && l.category !== "estadias",
+                )}
+              />
+            </>
+          )}
+          {!!listings.some((l) => l.category === "eventos") && (
+            <>
+              <h2>Categorias de bilhetes</h2>
+              <AvailabilityForm
+                event
+                listings={listings.filter((l) => l.category === "eventos")}
+              />
+            </>
+          )}
         </section>
       ) : (
         <div className="empty-state">
@@ -78,6 +113,26 @@ export default async function Availability() {
             </Link>
           </Button>
         </div>
+      )}
+      {!!listings?.some((l) => l.category === "estadias") && (
+        <section className="account-card">
+          <h2>Inventário de alojamentos</h2>
+          <StayInventoryForm
+            listings={listings.filter((l) => l.category === "estadias")}
+          />
+        </section>
+      )}
+      {!!nights?.length && (
+        <details className="account-card">
+          <summary>Noites configuradas · até 365 registos</summary>
+          {nights.map((n) => (
+            <p key={n.listing_id + n.night}>
+              <strong>{names.get(n.listing_id)}</strong> · {n.night} ·{" "}
+              {n.capacity} unidades ·{" "}
+              {(n.price_minor / 100).toLocaleString("pt-MZ")} MZN/noite
+            </p>
+          ))}
+        </details>
       )}
       <h2>Próximos períodos</h2>
       <p>

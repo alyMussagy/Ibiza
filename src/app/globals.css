@@ -1729,3 +1729,5 @@ a.bg-primary {
     flex-grow: 1;
   }
 }
+
+.photo-editor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1rem;margin:1.5rem 0}.photo-editor-grid article{padding:1rem;border:1px solid #e5e5e5;border-radius:18px}

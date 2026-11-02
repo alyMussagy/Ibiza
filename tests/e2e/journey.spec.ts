@@ -42,8 +42,8 @@ test("percurso de descoberta preserva escolhas e filtra o catálogo", async ({
   ).toBe(true);
   await page.getByRole("button", { name: "Ver opções" }).click();
   await expect(page).toHaveURL(/categoria=destinos/);
-  await expect(page).toHaveURL(/q=Tofo/);
+  await expect(page).toHaveURL(/local=Tofo/);
   await expect(
-    page.getByRole("heading", { name: "Tofo, ao ritmo do oceano" }),
+    page.getByRole("heading", { name: "Ofertas da nossa comunidade." }),
   ).toBeVisible();
 });

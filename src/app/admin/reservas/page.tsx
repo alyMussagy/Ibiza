@@ -1,3 +1,4 @@
+import { ReservationSupport } from "@/components/forms/reservation-support";
 import Link from "next/link";
 import { Search, RotateCcw, CalendarDays } from "lucide-react";
 import { requireAdmin } from "@/features/auth/session";
@@ -97,7 +98,10 @@ export default async function AdminReservations({
       {data?.length ? (
         <div className="info-grid">
           {data.map((item) => (
-            <ReservationCard item={item} key={item.id} readOnly />
+            <div key={item.id}>
+              <ReservationCard item={item} readOnly />
+              <ReservationSupport id={item.id} />
+            </div>
           ))}
         </div>
       ) : (

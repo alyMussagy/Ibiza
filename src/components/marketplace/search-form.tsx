@@ -9,7 +9,7 @@ export function SearchForm({
   category?: string;
 }) {
   return (
-    <form action="/explorar" className="search-form" role="search">
+    <form action="/ofertas" className="search-form" role="search">
       <div className="search-place">
         <MapPin size={20} aria-hidden="true" />
         <label htmlFor="search-place">
@@ -17,7 +17,7 @@ export function SearchForm({
           <input
             id="search-place"
             type="search"
-            name="q"
+            name="local"
             placeholder="Tofo, Barra, Vilanculos…"
             defaultValue={query}
             maxLength={100}

@@ -18,11 +18,14 @@ export type AvailablePeriod = {
   ends_at: string;
   price_minor: number;
   remaining: number;
+  category_name?: string;
 };
 export function AvailabilityForm({
   listings,
+  event = false,
 }: {
   listings: { id: string; title: string }[];
+  event?: boolean;
 }) {
   const [state, action, pending] = useActionState(createSlot, {});
   return (
@@ -38,6 +41,18 @@ export function AvailabilityForm({
           ))}
         </select>
       </label>
+      {event && (
+        <label>
+          Categoria de bilhete
+          <input
+            name="categoryName"
+            required
+            minLength={2}
+            maxLength={80}
+            placeholder="Geral, VIP, Criança…"
+          />
+        </label>
+      )}
       <label>
         Início · horário de Moçambique
         <input type="datetime-local" name="startsAt" required />
@@ -60,9 +75,11 @@ export function AvailabilityForm({
         />
       </label>
       <p className="notice">
-        Cria períodos fechados, sem sobreposição na mesma oferta. Define na
-        descrição se uma unidade corresponde a uma pessoa, quarto, mesa ou
-        grupo. O preço cobre o período completo.
+        {event
+          ? "Cada categoria tem capacidade e preço próprios. Bilhetes pagos ainda não são emitidos. "
+          : "Cria períodos fechados, sem sobreposição na mesma oferta. "}{" "}
+        Define na descrição se uma unidade corresponde a uma pessoa, quarto,
+        mesa ou grupo. O preço cobre o período completo.
       </p>
       {state.error && (
         <p className="form-error" role="alert">
@@ -115,6 +132,7 @@ export function ReservationRequestForm({
           <option value="">Selecciona</option>
           {periods.map((p) => (
             <option key={p.id} value={p.id} disabled={p.remaining < 1}>
+              {p.category_name ? p.category_name + " · " : ""}
               {formatPeriod(p.starts_at)} — {formatPeriod(p.ends_at)} ·{" "}
               {p.remaining} vagas
             </option>

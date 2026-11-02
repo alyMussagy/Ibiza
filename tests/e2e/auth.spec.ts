@@ -25,6 +25,10 @@ test("visitantes não acedem a perfil, parceiros ou administração", async ({
 }) => {
   for (const path of [
     "/perfil",
+    "/notificacoes",
+    "/bilhetes",
+    "/business/equipa",
+    "/business/scanner",
     "/business/painel",
     "/business/anuncios",
     "/admin/anuncios",

@@ -1,3 +1,5 @@
+> Actualização de 02/11/2026: o estado actual e as validações estão em [operations-release.md](operations-release.md). Este documento descreve a implementação anterior.
+
 # Painel administrativo — 02/11/2026
 
 ## Implementação

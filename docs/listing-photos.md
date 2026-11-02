@@ -1,3 +1,5 @@
+> Actualização de 02/11/2026: o estado actual e as validações estão em [operations-release.md](operations-release.md). Este documento descreve a implementação anterior.
+
 # Fotografias e detalhe das ofertas
 
 Implementado em 02/11/2026. Migration 0006 preparada; activação externa ainda pendente de confirmação.

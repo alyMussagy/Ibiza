@@ -1,6 +1,8 @@
 import Link from "next/link";
 import {
   Heart,
+  Bell,
+  Ticket,
   Compass,
   ArrowUpRight,
   UserRound,
@@ -58,6 +60,20 @@ export default async function Profile({
           </Link>
         </Button>
       </section>
+      <div className="account-links">
+        <Button asChild variant="outline">
+          <Link href="/notificacoes">
+            <Bell size={18} />
+            Notificações
+          </Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link href="/bilhetes">
+            <Ticket size={18} />
+            Os meus bilhetes
+          </Link>
+        </Button>
+      </div>
       <div className="info-grid profile-details">
         <article>
           <span className="account-card-icon">
@@ -66,6 +82,8 @@ export default async function Profile({
           <h2>Dados da conta</h2>
           <ProfileForm name={profile?.display_name || ""} />
           <dl>
+            <dt>Identificador para integrar uma equipa</dt>
+            <dd style={{ overflowWrap: "anywhere" }}>{user.id}</dd>
             <dt>Email</dt>
             <dd>{user.email}</dd>
             <dt>Estado</dt>
