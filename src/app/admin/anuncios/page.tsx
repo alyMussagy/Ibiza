@@ -1,3 +1,4 @@
+import { PhotoGallery } from "@/components/marketplace/photo-gallery";
 import Link from "next/link";
 import { ArrowLeft, ClipboardCheck } from "lucide-react";
 import { requireAdmin } from "@/features/auth/session";
@@ -8,7 +9,7 @@ export default async function ListingModeration() {
   const { supabase } = await requireAdmin();
   const { data: items, error } = await supabase
     .from("listings")
-    .select("*")
+    .select("*,listing_photos(id,alt,position)")
     .eq("review_status", "pending")
     .order("updated_at")
     .limit(100);
@@ -41,6 +42,7 @@ export default async function ListingModeration() {
                 MZN / {i.price_unit}
               </p>
               <p style={{ whiteSpace: "pre-wrap" }}>{i.description}</p>
+              <PhotoGallery photos={i.listing_photos} />
               <ListingReviewForm id={i.id} revision={i.revision} />
             </article>
           ))}

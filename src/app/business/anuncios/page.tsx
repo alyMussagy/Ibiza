@@ -1,3 +1,5 @@
+import { PhotoGallery } from "@/components/marketplace/photo-gallery";
+import { PhotoUpload } from "@/components/forms/photo-upload";
 import Link from "next/link";
 import { Plus, ArrowLeft, Pencil, Store } from "lucide-react";
 import { requireUser } from "@/features/auth/session";
@@ -29,7 +31,7 @@ export default async function Listings({
   const { data: items, error } = ids.length
     ? await supabase
         .from("listings")
-        .select("*")
+        .select("*,listing_photos(id,alt,position)")
         .in("organization_id", ids)
         .order("created_at", { ascending: false })
         .limit(100)
@@ -83,10 +85,29 @@ export default async function Listings({
         <section className="account-card">
           <h2>{editing ? "Editar anúncio" : "Criar anúncio"}</h2>
           <ListingForm
-            key={editing?.id ?? "new"}
+            key={editing ? `${editing.id}:${editing.revision}` : "new"}
             organizations={orgs}
             item={editing}
           />
+          {editing && (
+            <section>
+              <h2>Fotografias</h2>
+              <PhotoGallery photos={editing.listing_photos} />
+              {["draft", "rejected"].includes(editing.review_status) &&
+              editing.listing_photos.length < 8 ? (
+                <PhotoUpload
+                  key={editing.revision}
+                  id={editing.id}
+                  revision={editing.revision}
+                />
+              ) : (
+                <p className="notice">
+                  Para adicionar fotografias, guarda o anúncio como rascunho.
+                  Máximo de 8 fotografias.
+                </p>
+              )}
+            </section>
+          )}
         </section>
       ) : (
         <>

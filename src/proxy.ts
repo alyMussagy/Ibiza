@@ -33,5 +33,6 @@ export const config = {
     "/auth/:path*",
     "/business/:path*",
     "/admin/:path*",
+    "/media/:path*",
   ],
 };

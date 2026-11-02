@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Store, Compass } from "lucide-react";
+import { MapPin, Store, Compass, ArrowUpRight } from "lucide-react";
 import { createServerSupabase, hasSupabaseConfig } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 export const metadata = { title: "Ofertas dos parceiros" };
@@ -9,7 +10,7 @@ export default async function Offers() {
     ? await supabase
         .from("listings")
         .select(
-          "id,title,description,location,price_minor,price_unit,category,organizations!inner(approval)",
+          "id,title,description,location,price_minor,price_unit,category,organizations!inner(approval),listing_photos(id,alt,position)",
         )
         .eq("status", "published")
         .eq("organizations.approval", "approved")
@@ -30,17 +31,41 @@ export default async function Offers() {
         <div className="info-grid">
           {items.map((i) => (
             <article key={i.id}>
-              <Store className="coral" size={28} />
+              {i.listing_photos.length ? (
+                <Image
+                  className="offer-cover"
+                  src={`/media/${[...i.listing_photos].sort((a, b) => a.position - b.position)[0].id}`}
+                  alt={
+                    [...i.listing_photos].sort(
+                      (a, b) => a.position - b.position,
+                    )[0].alt
+                  }
+                  width={640}
+                  height={420}
+                  unoptimized
+                />
+              ) : (
+                <Store className="coral" size={28} />
+              )}
               <span className="status-badge">{i.category}</span>
               <h2>{i.title}</h2>
               <p>
                 <MapPin size={16} aria-hidden="true" /> {i.location}
               </p>
-              <p style={{ whiteSpace: "pre-wrap" }}>{i.description}</p>
+              <p>
+                {i.description.slice(0, 180)}
+                {i.description.length > 180 ? "…" : ""}
+              </p>
               <strong>
                 {(i.price_minor / 100).toLocaleString("pt-MZ")} MZN /{" "}
                 {i.price_unit}
               </strong>
+              <Button asChild variant="outline">
+                <Link href={`/ofertas/${i.id}`}>
+                  Conhecer a oferta
+                  <ArrowUpRight size={18} />
+                </Link>
+              </Button>
             </article>
           ))}
         </div>

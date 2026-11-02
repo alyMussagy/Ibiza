@@ -16,6 +16,7 @@ beforeAll(async () => {
   await db.exec(
     `CREATE ROLE anon; CREATE ROLE authenticated; CREATE SCHEMA auth; CREATE TABLE auth.users(id uuid PRIMARY KEY,raw_user_meta_data jsonb DEFAULT '{}',email_confirmed_at timestamptz); CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$SELECT nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$; GRANT USAGE ON SCHEMA public,auth TO anon,authenticated;`,
   );
+  await db.exec("CREATE SCHEMA storage; CREATE TABLE storage.buckets(id text PRIMARY KEY,name text,public boolean,file_size_limit bigint,allowed_mime_types text[]); CREATE TABLE storage.objects(id uuid DEFAULT gen_random_uuid(),bucket_id text,name text,UNIQUE(bucket_id,name)); ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY; GRANT USAGE ON SCHEMA storage TO anon,authenticated; GRANT SELECT,INSERT,UPDATE ON storage.objects TO anon,authenticated;");
   for (const file of [
     "0000_illegal_wallop.sql",
     "0001_security.sql",
@@ -23,6 +24,7 @@ beforeAll(async () => {
     "0003_auth_partner_security.sql",
     "0004_profile_update.sql",
     "0005_listing_management.sql",
+    "0006_listing_photos.sql",
   ])
     await db.exec(
       readFileSync(
@@ -309,4 +311,24 @@ it("RPC de anúncio rejeita valores inválidos e publicação por parceiro suspe
       [organization],
     ),
   ).rejects.toThrow("Approved partner manager");
+});
+it("fotografias isolam parceiros, ficam privadas em rascunho e não são substituíveis",async()=>{
+ await db.exec('RESET ROLE');await db.query("UPDATE public.organizations SET approval='approved' WHERE id=$1",[organization]);
+ await asUser(alice);
+ const objectName=listingId+'/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa.jpg';
+ await db.query("INSERT INTO storage.objects(bucket_id,name) VALUES('listing-photos',$1)",[objectName]);
+ await expect(db.query("SELECT public.attach_listing_photo($1,$2,'Vista da praia',1)",[listingId,objectName])).rejects.toThrow('Listing changed');
+ await db.query("SELECT public.attach_listing_photo($1,$2,'Vista da praia',4)",[listingId,objectName]);
+ expect((await db.query('SELECT name FROM storage.objects')).rows).toHaveLength(1);
+ const changed=await db.query("UPDATE storage.objects SET name='replaced.jpg' RETURNING name");expect(changed.rows).toHaveLength(0);
+ await asUser(bob);expect((await db.query('SELECT name FROM storage.objects')).rows).toHaveLength(0);
+ await expect(db.query("INSERT INTO storage.objects(bucket_id,name) VALUES('listing-photos',$1)",[listingId+'/bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb.jpg'])).rejects.toThrow();
+ await expect(db.query("SELECT public.attach_listing_photo($1,$2,'Vista da praia',5)",[listingId,objectName])).rejects.toThrow('Photo access denied');
+ await db.exec('RESET ROLE; SET ROLE anon');expect((await db.query('SELECT name FROM storage.objects')).rows).toHaveLength(0);
+ await asUser(alice);await db.query("SELECT public.save_listing($1,$2,5,'Passeio com fotografias','Um passeio de barco com guia local e duração de três horas.','experiencias','Tofo',170000,'pessoa',true)",[listingId,organization]);
+ await expect(db.query("INSERT INTO storage.objects(bucket_id,name) VALUES('listing-photos',$1)",[listingId+'/bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb.jpg'])).rejects.toThrow();
+ await asUser(admin);await db.query("SELECT public.review_listing($1,6,'approved','Fotografia e descrição verificadas')",[listingId]);
+ await db.exec('RESET ROLE; SET ROLE anon');expect((await db.query('SELECT name FROM storage.objects')).rows).toHaveLength(1);
+ await db.exec('RESET ROLE');await db.query("UPDATE public.organizations SET approval='suspended' WHERE id=$1",[organization]);
+ await db.exec('SET ROLE anon');expect((await db.query('SELECT name FROM storage.objects')).rows).toHaveLength(0);
 });
