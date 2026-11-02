@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       if (!error)
         return NextResponse.redirect(
           new URL(
-            type === "recovery" ? "/actualizar-palavra-passe" : "/perfil",
+            type === "recovery" ? "/actualizar-palavra-passe" : "/comecar",
             origin,
           ),
         );

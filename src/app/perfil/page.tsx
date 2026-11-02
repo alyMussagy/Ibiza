@@ -24,7 +24,52 @@ export default async function Profile({
     <main id="main" className="shell category-page">
       <span className="eyebrow coral">A MINHA CONTA</span>
       <h1>Olá, {profile?.display_name || "viajante"}.</h1>
-      <p className="lead">{user.email}</p>
+      <p className="lead">
+        O teu espaço para descobrir lugares, gerir o acesso e acompanhar o teu
+        negócio.
+      </p>
+      <section className="profile-plan">
+        <div>
+          <span className="eyebrow coral">O TEU PRÓXIMO PLANO</span>
+          <h2>Há mais para viver em Inhambane.</h2>
+          <p>
+            Escolhe o que te apetece e encontra ideias para a próxima
+            escapadinha.
+          </p>
+        </div>
+        <Button asChild>
+          <Link href="/comecar">Encontrar o meu próximo plano →</Link>
+        </Button>
+      </section>
+      <div className="info-grid profile-details">
+        <article>
+          <h2>Dados da conta</h2>
+          <dl>
+            <dt>Nome</dt>
+            <dd>{profile?.display_name || "Não indicado"}</dd>
+            <dt>Email</dt>
+            <dd>{user.email}</dd>
+            <dt>Estado</dt>
+            <dd>Email confirmado</dd>
+            <dt>Membro desde</dt>
+            <dd>
+              {new Intl.DateTimeFormat("pt-MZ", { dateStyle: "long" }).format(
+                new Date(user.created_at),
+              )}
+            </dd>
+          </dl>
+        </article>
+        <article>
+          <h2>As tuas próximas viagens</h2>
+          <p>
+            O IBIZA está a preparar as reservas. Por enquanto, podes descobrir
+            destinos, alojamentos e experiências no catálogo de demonstração.
+          </p>
+          <Link href="/explorar" className="text-link">
+            Explorar o catálogo →
+          </Link>
+        </article>
+      </div>
       {(error || p.notice) && (
         <p className="notice">
           {p.notice === "sem-permissao"
@@ -34,7 +79,7 @@ export default async function Profile({
               : "Não foi possível carregar o perfil. Tenta novamente mais tarde."}
         </p>
       )}
-      <div className="info-grid">
+      <div className="info-grid profile-details">
         <article>
           <h2>IBIZA Business</h2>
           <p>Apresenta o teu negócio ou acompanha a tua candidatura.</p>
@@ -49,7 +94,7 @@ export default async function Profile({
             palavra-passe.
           </p>
           <Link href="/recuperar-conta" className="text-link">
-            Recuperar acesso →
+            Alterar palavra-passe →
           </Link>
         </article>
         {role?.role === "super_admin" && (

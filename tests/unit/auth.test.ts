@@ -40,7 +40,7 @@ describe("Autenticação no servidor", () => {
       "/\\evil.test",
       "/perfil?next=https://evil.test",
     ])
-      expect(safeNext(value)).toBe("/perfil");
+      expect(safeNext(value)).toBe("/comecar");
     expect(safeNext("/business/painel")).toBe("/business/painel");
     expect(
       registerSchema.safeParse({
@@ -69,7 +69,7 @@ describe("Autenticação no servidor", () => {
           next: "//evil.test",
         }),
       ),
-    ).rejects.toThrow("REDIRECT:/perfil");
+    ).rejects.toThrow("REDIRECT:/comecar");
     mocks.auth.signInWithPassword.mockResolvedValue({
       data: { user: { email_confirmed_at: null } },
       error: null,

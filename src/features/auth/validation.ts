@@ -10,10 +10,11 @@ export const loginSchema = z.object({
   email: emailSchema,
   password: z.string().min(1).max(128),
 });
-export function safeNext(value: unknown, fallback = "/perfil") {
+export function safeNext(value: unknown, fallback = "/comecar") {
   return typeof value === "string" &&
     [
       "/perfil",
+      "/comecar",
       "/business/candidatura",
       "/business/painel",
       "/admin/parceiros",

@@ -1,17 +1,20 @@
 "use client";
-import { useActionState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { useActionState, useState, useId } from "react";
 import { authAction } from "@/features/auth/actions";
 import { Button } from "@/components/ui/button";
 export type AuthMode = "login" | "register" | "recover" | "update";
 export function AuthForm({
   mode,
   enabled,
-  next = "/perfil",
+  next = "/comecar",
 }: {
   mode: AuthMode;
   enabled: boolean;
   next?: string;
 }) {
+  const [visible, setVisible] = useState(false);
+  const passwordId = useId();
   const [state, action, pending] = useActionState(authAction, {});
   return (
     <form action={action} className="account-form">
@@ -42,24 +45,45 @@ export function AuthForm({
         </label>
       )}
       {mode !== "recover" && (
-        <label>
-          {mode === "update" ? "Nova palavra-passe" : "Palavra-passe"}
-          <input
-            type="password"
-            name="password"
-            required
-            minLength={mode === "login" ? 1 : 12}
-            maxLength={128}
-            autoComplete={
-              mode === "login" ? "current-password" : "new-password"
-            }
-          />
+        <div className="password-field">
+          <label htmlFor={passwordId}>
+            {mode === "update" ? "Nova palavra-passe" : "Palavra-passe"}
+          </label>
+          <div className="password-control">
+            <input
+              id={passwordId}
+              type={visible ? "text" : "password"}
+              name="password"
+              required
+              minLength={mode === "login" ? 1 : 12}
+              maxLength={128}
+              autoComplete={
+                mode === "login" ? "current-password" : "new-password"
+              }
+            />
+            <button
+              type="button"
+              className="password-toggle"
+              aria-label={
+                visible ? "Ocultar palavra-passe" : "Mostrar palavra-passe"
+              }
+              aria-controls={passwordId}
+              aria-pressed={visible}
+              onClick={() => setVisible((v) => !v)}
+            >
+              {visible ? (
+                <EyeOff size={20} aria-hidden="true" />
+              ) : (
+                <Eye size={20} aria-hidden="true" />
+              )}
+            </button>
+          </div>
           {mode !== "login" && (
             <small>
               Pelo menos 12 caracteres. Usa uma palavra-passe única.
             </small>
           )}
-        </label>
+        </div>
       )}
       {state.error && (
         <p role="alert" className="form-error">

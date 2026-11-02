@@ -26,3 +26,11 @@ Aceitação pendente: executar o roteiro de aceitação em `supabase-setup.md` c
 Limites desta fase: candidatura inicial e decisão; sem convites/gestão de equipas, reenvio de candidaturas rejeitadas, suspensão pela interface, paginação além das últimas 100 candidaturas, upload de documentos ou anúncios comerciais. Estes limites são visíveis nas áreas de gestão; não existem pagamentos ou bilhetes reais.
 
 Próxima fase funcional: catálogo persistente e gestão de anúncios (Fase 3), depois de validar a Fase 2 no projecto Supabase.
+
+## Percurso após autenticação — 02/11/2026
+
+Login sem destino específico e confirmação de registo passam a abrir `/comecar`. Retornos explícitos para perfil, parceiros e recuperação continuam preservados. O percurso permite escolher categoria e destino, voltar sem perder escolhas e abrir o catálogo filtrado. Esta é a etapa de descoberta do funil; ainda não existe checkout, reserva ou pagamento real, nem armazenamento de preferências.
+
+Os formulários têm controlo acessível para mostrar/ocultar a palavra-passe. O perfil apresenta os dados reais da conta, confirmação do email, data de criação e ligações para descoberta, segurança e parceiros. A edição de dados pessoais continua fora desta alteração.
+
+Validação: build/TypeScript, 24 testes unitários/integrados e 16 testes de navegador passaram. Perfil revisto com sessão real confirmada. O papel de administrador não foi alterado nesta entrega.
