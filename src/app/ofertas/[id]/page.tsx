@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+import { ReservationRequestForm } from "@/components/forms/reservation-forms";
 import { FavoriteButton } from "@/components/forms/favorite-button";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -39,6 +41,12 @@ export default async function OfferDetail({
     : { data: null, error: null };
   if (favorite.error)
     throw new Error("Não foi possível consultar os favoritos.");
+  const availability = await supabase.rpc("available_periods", {
+    target_listing: id,
+  });
+  if (availability.error && availability.error.code !== "PGRST202")
+    throw new Error("Não foi possível consultar a disponibilidade.");
+  const periods = availability.data ?? [];
   const org = Array.isArray(item.organizations)
     ? item.organizations[0]
     : item.organizations;
@@ -79,9 +87,26 @@ export default async function OfferDetail({
           <h2>{(item.price_minor / 100).toLocaleString("pt-MZ")} MZN</h2>
           <p>por {item.price_unit}</p>
           <p className="notice">
-            Oferta informativa. Reservas e pagamentos ainda não estão
-            disponíveis.
+            O preço dos períodos disponíveis pode variar. O total exacto aparece
+            antes do envio do pedido. Sem pagamento online.
           </p>
+          <h3>Escolhe quando queres ir</h3>
+          {periods.length ? (
+            user?.email_confirmed_at ? (
+              <ReservationRequestForm
+                periods={periods}
+                requestKey={randomUUID()}
+              />
+            ) : (
+              <Button asChild>
+                <Link href="/login?next=/ofertas">
+                  Entrar para pedir reserva
+                </Link>
+              </Button>
+            )
+          ) : (
+            <p>Ainda não há períodos disponíveis para esta oferta.</p>
+          )}
         </aside>
       </div>
     </main>

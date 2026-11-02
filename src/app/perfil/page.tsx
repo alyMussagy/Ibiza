@@ -84,13 +84,12 @@ export default async function Profile({
           </span>
           <h2>As tuas próximas viagens</h2>
           <p>
-            O IBIZA está a preparar as reservas. Por enquanto, podes descobrir
-            ofertas de parceiros e guardar os teus lugares favoritos.
+            Consulta os teus pedidos e acompanha as confirmações dos parceiros.
           </p>
           <Button asChild variant="outline">
-            <Link href="/ofertas">
+            <Link href="/reservas">
               <Compass size={18} aria-hidden="true" />
-              Explorar o catálogo
+              Ver as minhas reservas
               <ArrowUpRight size={16} aria-hidden="true" />
             </Link>
           </Button>

@@ -129,7 +129,8 @@ export default async function Offers({
       </form>
       <p className="notice">
         Preços de referência por pessoa, noite, entrada, mesa ou grupo, conforme
-        cada oferta. Reservas e pagamentos ainda não disponíveis.
+        cada oferta. Consulta os períodos disponíveis no detalhe da oferta. Sem
+        pagamento online.
       </p>
       <p aria-live="polite">{count ?? 0} ofertas encontradas</p>
       {items?.length ? (

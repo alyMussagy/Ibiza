@@ -57,6 +57,13 @@
       "when": 1793627189014,
       "tag": "0007_customer_favorites",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1793629851185,
+      "tag": "0008_reservations",
+      "breakpoints": true
     }
   ]
 }

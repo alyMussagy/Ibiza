@@ -31,6 +31,7 @@ export const config = {
     "/actualizar-palavra-passe",
     "/perfil",
     "/favoritos",
+    "/reservas",
     "/ofertas/:path*",
     "/auth/:path*",
     "/business/:path*",

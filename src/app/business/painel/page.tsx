@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Store } from "lucide-react";
+import { Store, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { requireUser } from "@/features/auth/session";
 import { statusLabels } from "@/features/partners/validation";
@@ -59,6 +59,12 @@ export default async function PartnerDashboard() {
         </div>
       )}
       <div className="account-links">
+        <Button asChild variant="outline">
+          <Link href="/business/reservas">
+            <CalendarDays size={18} />
+            Gerir reservas
+          </Link>
+        </Button>
         <Button asChild>
           <Link href="/business/anuncios">
             <Store size={18} />
