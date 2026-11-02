@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ProfileForm } from "@/components/forms/profile-form";
 import { requireUser } from "@/features/auth/session";
 import { logoutAction } from "@/features/auth/actions";
 import { Button } from "@/components/ui/button";
@@ -44,9 +45,8 @@ export default async function Profile({
       <div className="info-grid profile-details">
         <article>
           <h2>Dados da conta</h2>
+          <ProfileForm name={profile?.display_name || ""} />
           <dl>
-            <dt>Nome</dt>
-            <dd>{profile?.display_name || "Não indicado"}</dd>
             <dt>Email</dt>
             <dd>{user.email}</dd>
             <dt>Estado</dt>

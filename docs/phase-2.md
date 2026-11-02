@@ -34,3 +34,11 @@ Login sem destino específico e confirmação de registo passam a abrir `/comeca
 Os formulários têm controlo acessível para mostrar/ocultar a palavra-passe. O perfil apresenta os dados reais da conta, confirmação do email, data de criação e ligações para descoberta, segurança e parceiros. A edição de dados pessoais continua fora desta alteração.
 
 Validação: build/TypeScript, 24 testes unitários/integrados e 16 testes de navegador passaram. Perfil revisto com sessão real confirmada. O papel de administrador não foi alterado nesta entrega.
+
+## Edição de perfil — 02/11/2026
+
+A conta permite actualizar o nome de apresentação. A RPC update_own_profile usa a identidade da sessão, exige email confirmado, valida 2–100 caracteres e não aceita um ID ou papel enviado pelo cliente. Não há permissões directas de UPDATE sobre perfis para clientes. Migration 0004 aplicada ao projecto real: journal com cinco entradas. Instalações existentes devem usar db:migrate ou docs/setup/supabase-upgrade-0004.sql, nunca repetir o bootstrap.
+
+A candidatura verifica se já existe pedido pendente antes de apresentar o formulário. Se existir, orienta para o painel. A função de submissão mantém a protecção transaccional contra duplicação.
+
+Validação: 28 testes unitários/integrados, 16 testes de navegador e build/TypeScript passaram. Gravação real do nome testada com o valor actual, sem mudar o nome do proprietário. Formulário de candidatura verificado na sessão real, sem enviar candidatura fictícia. Promoção da conta administradora preparada e pendente de confirmação no navegador.

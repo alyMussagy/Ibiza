@@ -21,6 +21,7 @@ beforeAll(async () => {
     "0001_security.sql",
     "0002_kind_energizer.sql",
     "0003_auth_partner_security.sql",
+    "0004_profile_update.sql",
   ])
     await db.exec(
       readFileSync(
@@ -149,5 +150,42 @@ it("auditoria rejeita alterações e dados anónimos são protegidos", async () 
     db.query(
       "SELECT public.submit_partner_application('Casa','estadias','a@example.test','+258 840000000','Tofo','Descrição suficientemente longa')",
     ),
+  ).rejects.toThrow();
+});
+
+it("edição de perfil só altera o próprio nome e mantém permissões intactas", async () => {
+  await asUser(alice);
+  await db.query("SELECT public.update_own_profile('  Alice Actualizada  ')");
+  expect(
+    (await db.query("SELECT display_name FROM public.profiles")).rows,
+  ).toEqual([{ display_name: "Alice Actualizada" }]);
+  await expect(
+    db.query("SELECT public.update_own_profile(' ')"),
+  ).rejects.toThrow("Invalid display name");
+  await expect(
+    db.query("SELECT public.update_own_profile(NULL)"),
+  ).rejects.toThrow("Invalid display name");
+  await expect(
+    db.query("UPDATE public.profiles SET display_name='Intruso' WHERE id=$1", [
+      bob,
+    ]),
+  ).rejects.toThrow();
+  await expect(
+    db.query(
+      "INSERT INTO public.platform_roles(profile_id,role) VALUES($1,'super_admin')",
+      [alice],
+    ),
+  ).rejects.toThrow();
+  await asUser(bob);
+  expect(
+    (await db.query("SELECT display_name FROM public.profiles")).rows,
+  ).toEqual([{ display_name: "Bob" }]);
+  await asUser(unconfirmed);
+  await expect(
+    db.query("SELECT public.update_own_profile('Nome Novo')"),
+  ).rejects.toThrow("Confirmed email");
+  await db.exec("RESET ROLE; SET ROLE anon");
+  await expect(
+    db.query("SELECT public.update_own_profile('Nome Novo')"),
   ).rejects.toThrow();
 });

@@ -86,3 +86,6 @@ API real verificada: organizações públicas HTTP 200; contactos privados e pap
 Pendências: SMTP próprio, testes com contas controladas e identificação da primeira conta verificada para administrador. Não atribuir super_admin através de metadados do utilizador.
 
 `supabase init` concluído. A CLI ainda precisa de login na conta proprietária para `link`; a instalação via SQL Editor já está concluída. As migrations continuam geridas pelo Drizzle. Não repetir bootstrap nem substituir por `supabase db push`.
+### Actualização 0004 — 02/11/2026
+
+Aplicada e verificada no projecto real: RPC de edição do próprio nome. Journal agora com cinco migrations. O ficheiro supabase-upgrade-0004.sql aplica somente esta actualização sobre as quatro migrations anteriores e recusa um estado inesperado. Gravação via interface testada com sucesso.
