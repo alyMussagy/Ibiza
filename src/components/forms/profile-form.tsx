@@ -1,4 +1,5 @@
 "use client";
+import { Save, LoaderCircle } from "lucide-react";
 import { useActionState } from "react";
 import { updateProfile } from "@/features/auth/profile-actions";
 import { Button } from "@/components/ui/button";
@@ -29,6 +30,11 @@ export function ProfileForm({ name }: { name: string }) {
         </p>
       )}
       <Button type="submit" disabled={pending}>
+        {pending ? (
+          <LoaderCircle size={18} className="animate-spin" aria-hidden="true" />
+        ) : (
+          <Save size={18} aria-hidden="true" />
+        )}
         {pending ? "A guardar…" : "Guardar nome"}
       </Button>
     </form>

@@ -1,4 +1,15 @@
 import Link from "next/link";
+import {
+  Compass,
+  ArrowUpRight,
+  UserRound,
+  CalendarDays,
+  Building2,
+  ShieldCheck,
+  LayoutDashboard,
+  LogOut,
+  KeyRound,
+} from "lucide-react";
 import { ProfileForm } from "@/components/forms/profile-form";
 import { requireUser } from "@/features/auth/session";
 import { logoutAction } from "@/features/auth/actions";
@@ -39,11 +50,18 @@ export default async function Profile({
           </p>
         </div>
         <Button asChild>
-          <Link href="/comecar">Encontrar o meu próximo plano →</Link>
+          <Link href="/comecar">
+            <Compass size={20} aria-hidden="true" />
+            Encontrar o meu próximo plano
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
         </Button>
       </section>
       <div className="info-grid profile-details">
         <article>
+          <span className="account-card-icon">
+            <UserRound size={23} aria-hidden="true" />
+          </span>
           <h2>Dados da conta</h2>
           <ProfileForm name={profile?.display_name || ""} />
           <dl>
@@ -60,14 +78,21 @@ export default async function Profile({
           </dl>
         </article>
         <article>
+          <span className="account-card-icon">
+            <CalendarDays size={23} aria-hidden="true" />
+          </span>
           <h2>As tuas próximas viagens</h2>
           <p>
             O IBIZA está a preparar as reservas. Por enquanto, podes descobrir
             destinos, alojamentos e experiências no catálogo de demonstração.
           </p>
-          <Link href="/explorar" className="text-link">
-            Explorar o catálogo →
-          </Link>
+          <Button asChild variant="outline">
+            <Link href="/explorar">
+              <Compass size={18} aria-hidden="true" />
+              Explorar o catálogo
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          </Button>
         </article>
       </div>
       {(error || p.notice) && (
@@ -81,33 +106,55 @@ export default async function Profile({
       )}
       <div className="info-grid profile-details">
         <article>
+          <span className="account-card-icon">
+            <Building2 size={23} aria-hidden="true" />
+          </span>
           <h2>IBIZA Business</h2>
           <p>Apresenta o teu negócio ou acompanha a tua candidatura.</p>
-          <Link href="/business/painel" className="text-link">
-            Abrir área de parceiro →
-          </Link>
+          <Button asChild variant="outline">
+            <Link href="/business/painel">
+              <Building2 size={18} aria-hidden="true" />
+              Abrir área de parceiro
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          </Button>
         </article>
         <article>
+          <span className="account-card-icon">
+            <ShieldCheck size={23} aria-hidden="true" />
+          </span>
           <h2>Segurança</h2>
           <p>
             Podes solicitar uma ligação por email para redefinir a
             palavra-passe.
           </p>
-          <Link href="/recuperar-conta" className="text-link">
-            Alterar palavra-passe →
-          </Link>
+          <Button asChild variant="outline">
+            <Link href="/recuperar-conta">
+              <KeyRound size={18} aria-hidden="true" />
+              Alterar palavra-passe
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          </Button>
         </article>
         {role?.role === "super_admin" && (
           <article>
+            <span className="account-card-icon">
+              <LayoutDashboard size={23} aria-hidden="true" />
+            </span>
             <h2>Administração</h2>
-            <Link href="/admin/parceiros" className="text-link">
-              Rever candidaturas →
-            </Link>
+            <Button asChild variant="outline">
+              <Link href="/admin/parceiros">
+                <ShieldCheck size={18} aria-hidden="true" />
+                Rever candidaturas
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </Link>
+            </Button>
           </article>
         )}
       </div>
       <form action={logoutAction}>
         <Button type="submit" variant="outline">
+          <LogOut size={18} aria-hidden="true" />
           Terminar sessão
         </Button>
       </form>

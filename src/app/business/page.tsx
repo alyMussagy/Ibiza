@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { Building2, ShieldCheck, LayoutDashboard } from "lucide-react";
+import {
+  Building2,
+  ShieldCheck,
+  LayoutDashboard,
+  ArrowUpRight,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 export const metadata = { title: "IBIZA Business" };
 export default function Business() {
   return (
@@ -47,12 +53,19 @@ export default function Business() {
         parceiros precisam de aprovação antes de publicar serviços.
       </p>
       <div className="account-links">
-        <Link href="/business/candidatura" className="text-link">
-          Apresentar o meu negócio →
-        </Link>
-        <Link href="/business/painel">
-          Já sou parceiro · Acompanhar candidatura
-        </Link>
+        <Button asChild>
+          <Link href="/business/candidatura">
+            <Building2 size={18} aria-hidden="true" />
+            Apresentar o meu negócio
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link href="/business/painel">
+            <LayoutDashboard size={18} aria-hidden="true" />
+            Já sou parceiro · Acompanhar candidatura
+          </Link>
+        </Button>
       </div>
     </main>
   );

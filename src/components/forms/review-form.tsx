@@ -1,4 +1,5 @@
 "use client";
+import { ShieldCheck, LoaderCircle } from "lucide-react";
 import { useActionState } from "react";
 import { reviewPartner } from "@/features/partners/actions";
 import { Button } from "@/components/ui/button";
@@ -36,6 +37,11 @@ export function ReviewForm({ id }: { id: string }) {
         </p>
       )}
       <Button type="submit" disabled={pending || Boolean(state.success)}>
+        {pending ? (
+          <LoaderCircle size={18} className="animate-spin" aria-hidden="true" />
+        ) : (
+          <ShieldCheck size={18} aria-hidden="true" />
+        )}
         {pending ? "A registar…" : "Registar decisão"}
       </Button>
     </form>

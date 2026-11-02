@@ -1398,3 +1398,116 @@ a.bg-primary {
     font-size: 24px;
   }
 }
+
+/* Shared action language: semantic icons, tactile feedback and visible focus. */
+.ibiza-button {
+  position: relative;
+  min-height: 44px;
+  height: auto;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  line-height: 1.35;
+  text-align: center;
+  transition:
+    background-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease,
+    border-color 0.18s ease;
+}
+.ibiza-button svg {
+  flex-shrink: 0;
+  stroke-width: 1.8;
+}
+.ibiza-button[data-variant="default"] {
+  background: linear-gradient(120deg, #e92050, #cf1643);
+  color: white;
+  border: 1px solid #cb1741;
+  box-shadow:
+    0 5px 14px #d51b4426,
+    inset 0 1px 0 #ffffff30;
+}
+.ibiza-button[data-variant="default"]:hover:not(:disabled) {
+  background: linear-gradient(120deg, #d81a48, #b61137);
+  box-shadow: 0 7px 20px #d51b4436;
+  transform: translateY(-1px);
+}
+.ibiza-button[data-variant="outline"] {
+  border-color: #dfd9d6;
+  background: #fff;
+  color: #35302e;
+  box-shadow: 0 2px 4px #34251b05;
+}
+.ibiza-button[data-variant="outline"]:hover:not(:disabled) {
+  border-color: #d5758b;
+  background: #fff5f7;
+  color: #a91b3e;
+  transform: translateY(-1px);
+}
+.ibiza-button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+.ibiza-button:focus-visible {
+  outline: 3px solid #9f2444;
+  outline-offset: 4px;
+}
+.account-card-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  color: #be2147;
+  background: linear-gradient(140deg, #fff0f3, #ffe4eb);
+  border: 1px solid #f5d7df;
+  margin-bottom: 18px;
+}
+.profile-details article {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.profile-details article > .ibiza-button {
+  margin-top: auto;
+}
+.profile-details article > p {
+  margin-bottom: 24px;
+}
+.profile-form {
+  width: 100%;
+}
+.profile-form > .ibiza-button {
+  align-self: flex-start;
+  justify-self: start;
+}
+.profile-plan > .ibiza-button {
+  flex-shrink: 0;
+  max-width: 100%;
+}
+.account-links:has(> .ibiza-button) {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .profile-plan > .ibiza-button {
+    flex-shrink: 1;
+  }
+  .account-links:has(> .ibiza-button) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ibiza-button {
+    transition: none;
+  }
+  .ibiza-button:hover:not(:disabled),
+  .ibiza-button:active:not(:disabled) {
+    transform: none;
+  }
+  .ibiza-button .animate-spin {
+    animation: none;
+  }
+}
+.profile-details { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }

@@ -1,5 +1,13 @@
 "use client";
-import { Eye, EyeOff } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  LogIn,
+  UserPlus,
+  Mail,
+  LockKeyhole,
+  LoaderCircle,
+} from "lucide-react";
 import { useActionState, useState, useId } from "react";
 import { authAction } from "@/features/auth/actions";
 import { Button } from "@/components/ui/button";
@@ -13,6 +21,12 @@ export function AuthForm({
   enabled: boolean;
   next?: string;
 }) {
+  const ActionIcon = {
+    login: LogIn,
+    register: UserPlus,
+    recover: Mail,
+    update: LockKeyhole,
+  }[mode];
   const [visible, setVisible] = useState(false);
   const passwordId = useId();
   const [state, action, pending] = useActionState(authAction, {});
@@ -96,6 +110,11 @@ export function AuthForm({
         </p>
       )}
       <Button type="submit" disabled={!enabled || pending}>
+        {pending ? (
+          <LoaderCircle size={18} className="animate-spin" aria-hidden="true" />
+        ) : (
+          <ActionIcon size={18} aria-hidden="true" />
+        )}
         {pending
           ? "A processar…"
           : {

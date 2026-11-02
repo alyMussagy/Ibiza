@@ -1,4 +1,5 @@
 "use client";
+import { Send, LoaderCircle } from "lucide-react";
 import { useActionState } from "react";
 import { submitPartner } from "@/features/partners/actions";
 import { Button } from "@/components/ui/button";
@@ -82,6 +83,11 @@ export function PartnerForm({ email }: { email: string }) {
         </p>
       )}
       <Button type="submit" disabled={pending}>
+        {pending ? (
+          <LoaderCircle size={18} className="animate-spin" aria-hidden="true" />
+        ) : (
+          <Send size={18} aria-hidden="true" />
+        )}
         {pending ? "A enviar…" : "Enviar candidatura"}
       </Button>
     </form>
