@@ -11,9 +11,9 @@ import {
   MapPin,
   MoveUpRight,
 } from "lucide-react";
-import { categories, demoListings } from "@/features/listings/catalog";
+import { categories } from "@/features/listings/catalog";
 import { SearchForm } from "@/components/marketplace/search-form";
-import { ListingCard } from "@/components/marketplace/listing-card";
+import { LiveOffers } from "@/components/marketplace/live-offers";
 import { Button } from "@/components/ui/button";
 const icons = [Compass, BedDouble, Music2, Utensils, Waves];
 export default function Home() {
@@ -84,17 +84,7 @@ export default function Home() {
             Todos os destinos <ArrowRight size={18} />
           </Link>
         </div>
-        <div className="listing-grid">
-          {demoListings
-            .filter((l) => l.category === "destinos")
-            .map((l) => (
-              <ListingCard key={l.slug} listing={l} />
-            ))}
-        </div>
-        <p className="demo-note">
-          <span /> Conteúdo de demonstração · Fotografias ilustrativas · Sem
-          reservas ou ofertas reais
-        </p>
+        <LiveOffers category="destinos" limit={3} />
       </section>
       <section className="discovery-section">
         <div className="shell discovery-grid">
@@ -110,7 +100,7 @@ export default function Home() {
               rotina. Há muitas formas de viver Inhambane.
             </p>
             <Button asChild>
-              <Link href="/explorar">
+              <Link href="/ofertas">
                 Encontra a tua próxima história <ArrowUpRight size={18} />
               </Link>
             </Button>
@@ -163,21 +153,13 @@ export default function Home() {
           <div>
             <span className="eyebrow coral">PARA CADA FORMA DE VIAJAR</span>
             <h2>O teu tempo. A tua escolha.</h2>
-            <p>Uma primeira amostra do que estamos a construir.</p>
+            <p>Ofertas publicadas por parceiros aprovados do IBIZA.</p>
           </div>
-          <Link href="/explorar" className="text-link">
+          <Link href="/ofertas" className="text-link">
             Explorar tudo <ArrowRight size={18} />
           </Link>
         </div>
-        <div className="listing-grid">
-          {demoListings
-            .filter((l) =>
-              ["estadias", "restaurantes", "experiencias"].includes(l.category),
-            )
-            .map((l) => (
-              <ListingCard key={l.slug} listing={l} />
-            ))}
-        </div>
+        <LiveOffers limit={6} />
       </section>
       <section className="shell">
         <div className="partner-banner">

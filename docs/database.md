@@ -1,6 +1,8 @@
 # Base de dados — Fase 1
 
-Esquema inicial: profiles (identidade ligada a auth.users), organizations, organization_members, partner_applications, destinations, listings, listing_photos e favorites. UUIDs, chaves estrangeiras, slugs únicos, categorias/estados enum, ordenação única de fotografias e timestamps com actualização por trigger.
+Esquema inicial: profiles (identidade ligada a auth.users), organizations, organization_members, partner_applications, destinations, listings, listing_photos e favorites. A Fase 2 acrescenta platform_roles, partner_details privados e audit_logs imutáveis. UUIDs, chaves estrangeiras, slugs únicos, categorias/estados enum, ordenação única de fotografias e timestamps com actualização por trigger.
+
+As migrations 0002/0003 acrescentam perfil automático, RPCs de candidatura e decisão, leitura privada por associação e acesso administrativo. Apenas funções explicitamente autorizadas aceitam mutações; utilizadores não recebem escrita directa nas tabelas de negócio. Os testes novos em `tests/integration/partners.test.ts` verificam as quatro migrations e o isolamento de contactos. O SQL completo para instalação num projecto vazio encontra-se em `docs/setup/supabase-bootstrap.sql`.
 
 Migrations versionadas: `0000_illegal_wallop.sql` gerada por Drizzle e `0001_security.sql` para integrações Supabase, permissões, RLS e triggers. Manter SQL e snapshots existentes; futuras alterações usam `npm run db:generate`. Não usar push destrutivo como substituto das migrations.
 

@@ -4,7 +4,7 @@ Monólito modular: Next.js App Router + React + TypeScript strict, Tailwind v4, 
 
 Componentes de página renderizam no servidor. Apenas menu móvel e partilha requerem estado cliente. Pesquisa GET permite endereços partilháveis, valida os filtros e normaliza acentos. Fontes Inter servidas localmente pelo pacote Fontsource; fotografias locais optimizadas por next/image. Sem pedidos a fornecedores de fontes ou imagens no browser.
 
-Customer, Business e Admin serão áreas de navegação; fronteiras de segurança serão implementadas no servidor por identidade e organização. `/business` é apenas uma apresentação pública. Não há dashboard ou API privada exposta nesta fase. Não confundir grupos de rotas com autorização.
+Customer, Business e Admin têm fronteiras de segurança no servidor e na base de dados. `/business` permanece uma apresentação pública; `/business/painel` e `/business/candidatura` requerem identidade confirmada; `/admin/parceiros` requer super_admin. As RPCs verificam novamente as permissões, com pesquisa de organização no servidor PostgreSQL. Não confundir grupos de rotas com autorização. As páginas de conta são dinâmicas e o proxy aplica no-store e renova cookies.
 
 PostgreSQL será fonte de verdade de negócio. O catálogo desta fase é um conjunto editorial fixo, explicitamente demonstrativo, sem compras. O futuro repositório de listagens substituirá os exemplos, com transacções no servidor e políticas RLS. Nenhum estado de negócio é guardado em localStorage.
 

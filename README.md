@@ -1,6 +1,6 @@
 # IBIZA — Descobre. Reserva. Vive.
 
-Fase 1: fundação técnica e prévia editorial responsiva para turismo e entretenimento em Inhambane, Moçambique. **Não existem ofertas, pagamentos, bilhetes ou reservas reais nesta versão.**
+Fases 1–2: descoberta editorial, identidade oficial IBIZA, autenticação Supabase e candidaturas de parceiros com aprovação administrativa. **Não existem ofertas, pagamentos, bilhetes ou reservas reais nesta versão.** A activação e validação de contas reais depende da configuração do projecto Supabase.
 
 ## Executar
 
@@ -23,11 +23,13 @@ npm run test:e2e
 
 Para servir o build: `npm run start`. Parar com Ctrl+C.
 
-## Configurar Supabase numa fase seguinte
+## Configurar Supabase
 
-Copiar `.env.example` para `.env.local` e preencher URL e chave publicável do projecto Supabase. Nunca colocar a chave `service_role` no frontend. `DATABASE_URL` é secreta e só existe no servidor. O Next.js carrega `.env.local`; a CLI Drizzle precisa que `DATABASE_URL` esteja definida no ambiente do terminal antes de `npm run db:migrate` (ou que se use um carregador seguro de variáveis).
+Seguir [o guia de configuração](docs/supabase-setup.md). Copiar `.env.example` para `.env.local`, definir URL da aplicação, URL Supabase e chave publicável. Nunca colocar `service_role` ou `sb_secret_*` no frontend. `DATABASE_URL` é privada e necessária apenas para migrations via terminal. `npm run db:migrate` carrega `.env.local` automaticamente.
 
-Executar migrations apenas num projecto Supabase de desenvolvimento. O esquema `auth`, `auth.users`, `auth.uid()` e os papéis `anon`/`authenticated` devem existir. As migrations iniciais criam 8 tabelas, RLS e guardas de publicação. A Fase 1 não configura autenticação, Storage nem permite escritas a utilizadores. O cliente SSR fornecido é explicitamente de leitura: operações que alteram sessões falham até serem implementados Route Handlers e renovação de cookies na Fase 2.
+Executar migrations apenas num projecto Supabase de desenvolvimento. As 4 migrations criam 11 tabelas, RLS e funções transaccionais para candidatura/revisão. O cliente SSR grava cookies em Server Actions/Route Handlers; `src/proxy.ts` renova a sessão antes da renderização. As áreas privadas verificam identidade no servidor, e as RPCs voltam a verificar permissões na base de dados. Sem configuração, os formulários de autenticação não enviam dados. Storage fica para a fase do catálogo persistente.
+
+Alternativa para um projecto novo: `npm run db:bootstrap` gera SQL para o SQL Editor com journal Drizzle. Não aplicar em projectos com dados existentes.
 
 ## Estrutura
 
@@ -54,5 +56,7 @@ docs/                      arquitectura, regras e relatório da fase
 - [Pagamentos](docs/payments.md)
 - [Design e imagens](docs/design.md)
 - [Relatório da Fase 1](docs/phase-1.md)
+- [Configuração Supabase](docs/supabase-setup.md)
+- [Relatório da Fase 2](docs/phase-2.md)
 
 Dependências fixadas em `package.json` e `package-lock.json`. `components.json` configura os aliases e Tailwind para acrescentar componentes shadcn/ui. Não foi criado um projecto Sites ou Vercel: esta entrega mantém o repositório Next.js solicitado, com prévia local e publicação de staging pendente.

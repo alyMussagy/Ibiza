@@ -27,6 +27,9 @@ export function Header() {
         <Link className="partner-link" href="/business">
           Sou parceiro <ArrowUpRight size={16} />
         </Link>
+        <Link className="account-entry" href="/perfil">
+          A minha conta
+        </Link>
         <Button
           variant="outline"
           size="icon"
@@ -56,6 +59,9 @@ export function Header() {
           ))}
           <Link href="/business" onClick={() => setOpen(false)}>
             Sou parceiro
+          </Link>
+          <Link href="/perfil" onClick={() => setOpen(false)}>
+            A minha conta
           </Link>
         </nav>
       )}

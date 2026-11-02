@@ -6,9 +6,11 @@ test("homepage, pesquisa e detalhe editorial", async ({ page }) => {
   );
   await page.getByLabel("Para onde vamos?").fill("Tofo");
   await page.getByRole("button", { name: "Explorar", exact: true }).click();
-  await expect(page).toHaveURL(/q=Tofo/);
-  await expect(page.getByText("2 resultados de demonstração")).toBeVisible();
-  await page.getByRole("link", { name: /Tofo, ao ritmo/ }).click();
+  await expect(page).toHaveURL(/ofertas.*local=Tofo/);
+  await expect(
+    page.getByRole("heading", { name: "Ofertas da nossa comunidade." }),
+  ).toBeVisible();
+  await page.goto("/descobrir/tofo");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Tofo, ao ritmo do oceano",
   );
@@ -26,7 +28,7 @@ test("filtros, estado vazio e recuperação", async ({ page }) => {
   await expect(page.getByLabel("Para onde vamos?")).toHaveValue("");
   await page.getByLabel("O que queres descobrir?").selectOption("eventos");
   await page.getByRole("button", { name: "Explorar", exact: true }).click();
-  await expect(page.getByText("1 resultados de demonstração")).toBeVisible();
+  await expect(page).toHaveURL(/ofertas.*categoria=eventos/);
 });
 test("categorias e navegação sem overflow", async ({ page, isMobile }) => {
   await page.goto("/");

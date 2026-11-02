@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { categories, filterListings } from "@/features/listings/catalog";
-import { ListingCard } from "@/components/marketplace/listing-card";
+import { categories } from "@/features/listings/catalog";
+import { LiveOffers } from "@/components/marketplace/live-offers";
 import { SearchForm } from "@/components/marketplace/search-form";
 export function generateStaticParams() {
   return categories.map((c) => ({ category: c.slug }));
@@ -31,15 +31,7 @@ export default async function CategoryPage({
       <h1>{c.label}</h1>
       <p className="lead">{c.description}</p>
       <SearchForm category={c.slug} />
-      <p className="notice">
-        Catálogo demonstrativo. Os exemplos e fotografias são ilustrativos; não
-        aceitamos reservas nesta fase.
-      </p>
-      <div className="listing-grid">
-        {filterListings("", c.slug).map((l) => (
-          <ListingCard key={l.slug} listing={l} />
-        ))}
-      </div>
+      <LiveOffers category={c.slug} limit={12} />
     </main>
   );
 }
