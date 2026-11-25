@@ -27,6 +27,7 @@ export async function changePartnerStatus(
         "Não foi possível alterar. Confirma o estado actual; não podes decidir sobre o teu próprio negócio.",
     };
   revalidatePath("/admin/parceiros");
+  revalidatePath("/parceiros");
   revalidatePath("/ofertas");
   return { success: "Estado actualizado e motivo registado na auditoria." };
 }

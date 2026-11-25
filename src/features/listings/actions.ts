@@ -35,6 +35,7 @@ export async function saveListing(
     };
   revalidatePath("/business/anuncios");
   revalidatePath("/admin/anuncios");
+  revalidatePath("/anuncios");
   revalidatePath("/ofertas");
   redirect("/business/anuncios?guardado=1");
 }
@@ -61,6 +62,7 @@ export async function reviewListing(
     };
   revalidatePath("/business/anuncios");
   revalidatePath("/admin/anuncios");
+  revalidatePath("/anuncios");
   revalidatePath("/ofertas");
   return { success: "Decisão guardada e registada na auditoria." };
 }

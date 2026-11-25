@@ -53,6 +53,7 @@ export async function reviewPartner(
         "Não foi possível decidir. A candidatura pode já ter sido revista, ou não tens permissão.",
     };
   revalidatePath("/admin/parceiros");
+  revalidatePath("/parceiros");
   revalidatePath("/business/painel");
   return {
     success: "Decisão registada com sucesso no histórico de auditoria.",

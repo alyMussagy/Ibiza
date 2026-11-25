@@ -2,6 +2,7 @@
   "name": "ibiza",
   "version": "0.1.0",
   "private": true,
+  "workspaces": ["apps/admin"],
   "engines": {
     "node": ">=22.0.0"
   },
@@ -9,6 +10,9 @@
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
     "start": "next start --hostname 127.0.0.1",
+    "dev:admin": "npm run dev --workspace @ibiza/admin",
+    "build:admin": "npm run build --workspace @ibiza/admin",
+    "typecheck:admin": "npm run typecheck --workspace @ibiza/admin",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
