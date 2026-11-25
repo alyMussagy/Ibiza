@@ -17,7 +17,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
     "no-access": "Esta conta Google não tem acesso à administração do IBIZA.",
   }[notice || ""];
   return (
-    <main id="main" className="shell admin-login-wrap">
+    <main id="main" className="admin-login-wrap">
       <div className="admin-login-copy">
         <span className="eyebrow coral">IBIZA · CENTRO DE OPERAÇÕES</span>
         <h1>Onde o IBIZA ganha vida.</h1>
