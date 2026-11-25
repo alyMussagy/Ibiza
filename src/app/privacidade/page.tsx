@@ -57,9 +57,14 @@ export default function Privacy() {
         aplicação é alojada na Vercel e usa o Supabase para autenticação,
         armazenamento e base de dados. Estes fornecedores podem tratar dados
         fora de Moçambique. O servidor e os fornecedores podem conservar
-        registos técnicos de acesso e segurança. Nesta versão, não integramos
-        ferramentas de publicidade ou análise de visitantes, nem recolhemos
-        dados de pagamento na aplicação.
+        registos técnicos de acesso e segurança. Para compreender como o IBIZA
+        é encontrado, contamos sessões no próprio site e guardamos o canal de
+        origem, a campanha quando indicada na ligação, a primeira página e o
+        tipo de dispositivo (telemóvel, computador ou tablet). Uma sessão pode
+        ser associada à conta depois de iniciares sessão, para atribuir uma
+        candidatura de parceiro ao seu canal de origem. Não guardamos o IP nem
+        o endereço completo da página de origem nessa medição. Não integramos
+        ferramentas de publicidade nem recolhemos dados de pagamento na aplicação.
       </p>
 
       <h2>Conservação e pedidos</h2>

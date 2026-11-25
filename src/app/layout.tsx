@@ -3,6 +3,7 @@ import "@fontsource-variable/inter";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { TrafficRecorder } from "@/components/traffic-recorder";
 export const metadata: Metadata = {
   title: {
     default: "IBIZA — Descobre. Reserva. Vive.",
@@ -25,6 +26,7 @@ export default function RootLayout({
         </a>
         <Header />
         {children}
+        <TrafficRecorder />
         <Footer />
       </body>
     </html>
