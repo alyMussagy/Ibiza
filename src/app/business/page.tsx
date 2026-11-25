@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { Building2, ShieldCheck, LayoutDashboard } from "lucide-react";
+import {
+  Building2,
+  ShieldCheck,
+  LayoutDashboard,
+  ArrowUpRight,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 export const metadata = { title: "IBIZA Business" };
 export default function Business() {
   return (
@@ -11,8 +17,8 @@ export default function Business() {
         Ligado a novas possibilidades.
       </h1>
       <p className="lead">
-        Uma futura área de gestão para alojamentos, restaurantes, experiências e
-        organizadores de eventos.
+        Uma área para apresentar o teu negócio e acompanhar a aprovação pela
+        equipa IBIZA.
       </p>
       <div className="info-grid">
         {[
@@ -43,12 +49,24 @@ export default function Business() {
         })}
       </div>
       <p className="notice">
-        Em preparação. O registo de parceiros e a autenticação fazem parte da
-        Fase 2. Ainda não recolhemos candidaturas.
+        Cria uma conta, confirma o teu email e apresenta o teu negócio. Todos os
+        parceiros precisam de aprovação antes de publicar serviços.
       </p>
-      <Link href="/" className="text-link">
-        Voltar à descoberta →
-      </Link>
+      <div className="account-links">
+        <Button asChild>
+          <Link href="/business/candidatura">
+            <Building2 size={18} aria-hidden="true" />
+            Apresentar o meu negócio
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link href="/business/painel">
+            <LayoutDashboard size={18} aria-hidden="true" />
+            Já sou parceiro · Acompanhar candidatura
+          </Link>
+        </Button>
+      </div>
     </main>
   );
 }

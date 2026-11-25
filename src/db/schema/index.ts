@@ -8,6 +8,7 @@ import {
   uniqueIndex,
   integer,
   check,
+  jsonb,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 export const approvalStatus = pgEnum("approval_status", [
@@ -102,9 +103,22 @@ export const listings = pgTable(
     category: listingCategory("category").notNull(),
     status: listingStatus("status").default("draft").notNull(),
     currency: text("currency").default("MZN").notNull(),
+    location: text("location").notNull().default(""),
+    priceMinor: integer("price_minor").notNull().default(0),
+    priceUnit: text("price_unit").notNull().default("pessoa"),
+    reviewStatus: text("review_status").notNull().default("draft"),
+    reviewNotes: text("review_notes"),
+    revision: integer("revision").notNull().default(1),
     ...timestamps(),
   },
-  (t) => [check("currency_format", sql`${t.currency} ~ '^[A-Z]{3}$'`)],
+  (t) => [
+    check("currency_format", sql`${t.currency} ~ '^[A-Z]{3}$'`),
+    check("listing_price_valid", sql`${t.priceMinor} >= 0`),
+    check(
+      "listing_review_valid",
+      sql`${t.reviewStatus} IN ('draft','pending','approved','rejected')`,
+    ),
+  ],
 );
 export const listingPhotos = pgTable(
   "listing_photos",

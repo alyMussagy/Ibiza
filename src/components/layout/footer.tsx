@@ -11,7 +11,7 @@ export function Footer() {
         </div>
         <div>
           <strong>O teu próximo destino</strong>
-          <Link href="/explorar">Explorar Inhambane</Link>
+          <Link href="/ofertas">Explorar Inhambane</Link>
           <Link href="/destinos">Destinos</Link>
           <Link href="/experiencias">Experiências</Link>
         </div>
@@ -19,13 +19,13 @@ export function Footer() {
           <strong>Faz parte do IBIZA</strong>
           <Link href="/business">Para parceiros</Link>
           <Link href="/sobre">Sobre o projecto</Link>
-          <Link href="/sobre#privacidade">Privacidade nesta versão</Link>
+          <Link href="/privacidade">Privacidade</Link>
         </div>
       </div>
       <div className="shell footer-bottom">
         <span>© {new Date().getFullYear()} IBIZA</span>
         <span>Português · Moçambique · MZN</span>
-        <span>Versão de demonstração</span>
+        <span>Pré-lançamento</span>
       </div>
     </footer>
   );

@@ -1,0 +1,69 @@
+.ops-dashboard { padding: 36px 0 100px; color: #122430; }
+.ops-intro { min-height: 254px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding: 38px 42px; border-radius: 27px; color: #fff; background: linear-gradient(90deg, rgba(6,25,38,.94),rgba(6,25,38,.76) 55%,rgba(6,25,38,.28)),url('https://ibiza-mz.vercel.app/images/auth-tofo.webp') center 44% / cover; }
+.ops-intro .eyebrow { color: #ff7c94; }
+.ops-intro h1 { max-width: 680px; margin: 16px 0 8px; color: #fff; font-size: clamp(2.25rem,4vw,3.8rem); line-height: 1.05; letter-spacing: -.055em; }
+.ops-intro p { max-width: 575px; margin: 0; color: #e4edf0; font-size: 1rem; line-height: 1.6; }
+.ops-live { display: inline-flex; align-items: center; gap: 9px; flex: none; padding: 10px 14px; border: 1px solid #ffffff55; border-radius: 99px; color: #fff; background: #12243088; backdrop-filter: blur(12px); font-size: .78rem; font-weight: 700; }
+.ops-dashboard .admin-navigation { margin: 24px 0 42px; }
+.ops-section { margin-top: 44px; }
+.ops-section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+.ops-section-head h2 { margin: 5px 0 0; font-size: clamp(1.45rem,2.3vw,2rem); letter-spacing: -.04em; line-height: 1.2; }
+.ops-kicker { color: #d71949; font-size: .66rem; font-weight: 800; letter-spacing: .19em; }
+.ops-muted { color: #66717a; font-size: .79rem; }
+.ops-queue { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; }
+.ops-queue-card { position: relative; display: grid; align-content: start; min-height: 183px; padding: 22px; border: 1px solid #e5e1dc; border-radius: 19px; color: #122430; background: #fff; text-decoration: none; box-shadow: 0 6px 22px #12243008; transition: transform .18s ease,border-color .18s ease,box-shadow .18s ease; }
+.ops-queue-card:hover { transform: translateY(-2px); border-color: #ee6c86; box-shadow: 0 14px 34px #12243015; }
+.ops-queue-card:focus-visible,.ops-period a:focus-visible,.ops-link:focus-visible,.ops-activity a:focus-visible { outline: 3px solid #ed3153; outline-offset: 3px; }
+.ops-card-icon { display: inline-grid; place-items: center; width: 34px; height: 34px; margin-bottom: 13px; border-radius: 10px; color: #d71949; background: #fff1f3; }
+.ops-queue-card strong { font-size: 2.25rem; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -.05em; }
+.ops-queue-card > span:nth-of-type(2) { margin-top: 9px; padding-right: 20px; color: #4a5761; font-size: .88rem; line-height: 1.4; }
+.ops-card-arrow { position: absolute; right: 20px; bottom: 21px; color: #d71949; }
+.ops-period { display: inline-flex; gap: 3px; padding: 4px; border: 1px solid #e3deda; border-radius: 99px; background: #fff; }
+.ops-period a { min-width: 72px; padding: 9px 12px; border-radius: 99px; color: #5b6670; font-size: .76rem; font-weight: 700; text-align: center; text-decoration: none; }
+.ops-period a[aria-current=page] { color: #fff; background: #d71949; box-shadow: 0 3px 10px #d7194929; }
+.ops-period a:not([aria-current]):hover { color: #d71949; background: #fff0f2; }
+.ops-discovery-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+.ops-location-panel { grid-column: 1 / -1; }
+.ops-location-panel .ops-rank-list { grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 32px; }
+.ops-panel { min-width: 0; padding: 24px; border: 1px solid #e5e1dc; border-radius: 20px; background: #fff; box-shadow: 0 6px 22px #12243008; }
+.ops-panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.ops-panel-head > svg { color: #d71949; }
+.ops-panel-head h2,.ops-panel-head h3 { margin: 0; font-size: 1.1rem; letter-spacing: -.025em; }
+.ops-panel-head p { margin: 4px 0 0; color: #68737c; font-size: .78rem; }
+.ops-big-number { display: block; margin: 18px 0 8px; font-size: clamp(2.8rem,5vw,4.2rem); letter-spacing: -.06em; line-height: 1; font-variant-numeric: tabular-nums; }
+.ops-empty { display: grid; align-items: center; min-height: 132px; margin: 18px 0 0; color: #71808a; font-size: .88rem; line-height: 1.5; }
+.ops-rank-list { display: grid; gap: 16px; margin: 26px 0 0; padding: 0; list-style: none; }
+.ops-rank-list li > div { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 7px; color: #44535e; font-size: .85rem; }
+.ops-rank-list strong { color: #122430; font-variant-numeric: tabular-nums; }
+.ops-track { display: block; height: 8px; overflow: hidden; border-radius: 99px; background: #f0ebe9; }
+.ops-track > span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg,#ef4769,#ca1748); }
+.ops-device-list { display: grid; gap: 23px; margin-top: 36px; }
+.ops-device-row { display: grid; grid-template-columns: 122px minmax(0,1fr) 44px; align-items: center; gap: 10px; font-size: .82rem; }
+.ops-device-row > span:first-child { display: inline-flex; align-items: center; gap: 8px; color: #44535e; }
+.ops-device-row > span:first-child svg { color: #d71949; }
+.ops-device-row strong { text-align: right; font-variant-numeric: tabular-nums; }
+.ops-chart { display: flex; align-items: end; gap: 7px; height: 160px; margin-top: 8px; }
+.ops-chart-column { display: flex; flex: 1; min-width: 0; height: 100%; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; }
+.ops-chart-column strong { height: 15px; color: #7b6069; font-size: .65rem; font-variant-numeric: tabular-nums; }
+.ops-chart-bar { display: flex; align-items: flex-end; width: 100%; height: 105px; border-radius: 6px; background: #fff2f4; }
+.ops-chart-bar span { width: 100%; border-radius: 6px 6px 3px 3px; background: #df2051; }
+.ops-chart-column small { overflow: hidden; max-width: 100%; color: #71808a; font-size: .62rem; white-space: nowrap; }
+.ops-link,.ops-activity a { display: inline-flex; align-items: center; gap: 6px; color: #bf1741; font-size: .83rem; font-weight: 700; text-decoration: none; }
+.ops-link:hover,.ops-activity a:hover { text-decoration: underline; }
+.ops-performance { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; }
+.ops-performance > div { display: grid; align-content: start; min-height: 150px; padding: 22px; border: 1px solid #e5e1dc; border-radius: 18px; background: #fff; }
+.ops-performance svg { margin-bottom: 10px; color: #d71949; }
+.ops-performance strong { font-size: 1.8rem; font-variant-numeric: tabular-nums; }
+.ops-performance span { margin-top: 3px; color: #596771; font-size: .8rem; line-height: 1.35; }
+.ops-data-note { margin: 13px 0 0; color: #68737c; font-size: .75rem; }
+.ops-activity { margin-top: 44px; }
+.ops-activity .ops-kicker { display: block; margin-bottom: 5px; }
+.ops-activity ol { margin: 20px 0 0; padding: 0; list-style: none; }
+.ops-activity li { display: grid; grid-template-columns: 10px minmax(0,1fr) auto; align-items: center; gap: 16px; min-height: 50px; border-top: 1px solid #eee9e5; font-size: .84rem; }
+.ops-activity li strong { font-weight: 650; }
+.ops-activity time { color: #71808a; font-size: .76rem; }
+.ops-activity-dot { width: 8px; height: 8px; border-radius: 50%; background: #e4335d; }
+@media (max-width: 950px) { .ops-queue,.ops-performance { grid-template-columns: repeat(2,minmax(0,1fr)); } .ops-intro { align-items: flex-start; flex-direction: column; } }
+@media (max-width: 690px) { .ops-dashboard { padding-top: 18px; } .ops-intro { min-height: 245px; padding: 30px 25px; border-radius: 20px; } .ops-intro h1 { font-size: 2.3rem; } .ops-live { font-size: .7rem; } .ops-section-head { align-items: flex-start; flex-direction: column; } .ops-discovery-grid { grid-template-columns: 1fr; } .ops-location-panel .ops-rank-list { grid-template-columns: 1fr; } .ops-queue,.ops-performance { gap: 10px; } .ops-queue-card { min-height: 157px; padding: 16px; } .ops-card-arrow { right: 15px; bottom: 14px; } .ops-activity li { grid-template-columns: 10px minmax(0,1fr); } .ops-activity time { grid-column: 2; margin-top: -14px; } }
+@media (max-width: 420px) { .ops-queue,.ops-performance { grid-template-columns: 1fr; } .ops-queue-card { min-height: 130px; } .ops-performance > div { min-height: 120px; } }
+@media (prefers-reduced-motion: reduce) { .ops-queue-card { transition: none; } }
