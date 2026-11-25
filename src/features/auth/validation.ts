@@ -12,29 +12,34 @@ export const loginSchema = z.object({
   password: z.string().min(1).max(128),
 });
 export function safeNext(value: unknown, fallback = "/comecar") {
-  return typeof value === "string" &&
-    [
-      "/perfil",
-      "/favoritos",
-      "/notificacoes",
-      "/reservas",
-      "/bilhetes",
-      "/business/reservas",
-      "/business/scanner",
-      "/business/equipa",
-      "/business/disponibilidade",
-      "/ofertas",
-      "/comecar",
-      "/business/candidatura",
-      "/business/painel",
-      "/business/anuncios",
-      "/admin",
-      "/admin/reservas",
-      "/admin/auditoria",
-      "/admin/anuncios",
-      "/admin/parceiros",
-      "/actualizar-palavra-passe",
-    ].includes(value)
+  if (typeof value !== "string") return fallback;
+  if (
+    value.startsWith("/ofertas/") &&
+    z.uuid().safeParse(value.slice("/ofertas/".length)).success
+  )
+    return value;
+  return [
+    "/perfil",
+    "/favoritos",
+    "/notificacoes",
+    "/reservas",
+    "/bilhetes",
+    "/business/reservas",
+    "/business/scanner",
+    "/business/equipa",
+    "/business/disponibilidade",
+    "/ofertas",
+    "/comecar",
+    "/business/candidatura",
+    "/business/painel",
+    "/business/anuncios",
+    "/admin",
+    "/admin/reservas",
+    "/admin/auditoria",
+    "/admin/anuncios",
+    "/admin/parceiros",
+    "/actualizar-palavra-passe",
+  ].includes(value)
     ? value
     : fallback;
 }
@@ -50,4 +55,3 @@ export function appOrigin() {
     throw new Error("Origem inválida.");
   return url.origin;
 }
-

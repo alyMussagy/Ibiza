@@ -60,6 +60,7 @@ export default async function OfferDetail({
   const org = Array.isArray(item.organizations)
     ? item.organizations[0]
     : item.organizations;
+  const loginHref = `/login?next=${encodeURIComponent(`/ofertas/${id}`)}`;
   return (
     <main id="main" className="shell category-page">
       <Button asChild variant="outline">
@@ -77,7 +78,7 @@ export default async function OfferDetail({
         <FavoriteButton id={id} saved={!!favorite.data} />
       ) : (
         <Button asChild variant="outline">
-          <Link href="/login?next=/ofertas">
+          <Link href={loginHref}>
             <Heart size={18} aria-hidden="true" />
             Entrar para guardar
           </Link>
@@ -106,7 +107,7 @@ export default async function OfferDetail({
               <StayRequestForm id={id} requestKey={randomUUID()} />
             ) : (
               <Button asChild>
-                <Link href="/login?next=/ofertas">
+                <Link href={loginHref}>
                   <Store size={18} />
                   Entrar para escolher datas
                 </Link>
@@ -120,9 +121,7 @@ export default async function OfferDetail({
               />
             ) : (
               <Button asChild>
-                <Link href="/login?next=/ofertas">
-                  Entrar para pedir reserva
-                </Link>
+                <Link href={loginHref}>Entrar para pedir reserva</Link>
               </Button>
             )
           ) : (

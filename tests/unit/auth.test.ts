@@ -39,9 +39,15 @@ describe("Autenticação no servidor", () => {
       "https://evil.test",
       "/\\evil.test",
       "/perfil?next=https://evil.test",
+      "/ofertas/not-a-uuid",
+      "/ofertas/7d7e99d1-64fe-497c-b541-2d1f6af4cf82/extra",
+      "/ofertas/7d7e99d1-64fe-497c-b541-2d1f6af4cf82?next=//evil.test",
     ])
       expect(safeNext(value)).toBe("/comecar");
     expect(safeNext("/business/painel")).toBe("/business/painel");
+    expect(safeNext("/ofertas/7d7e99d1-64fe-497c-b541-2d1f6af4cf82")).toBe(
+      "/ofertas/7d7e99d1-64fe-497c-b541-2d1f6af4cf82",
+    );
     expect(
       registerSchema.safeParse({
         name: "Ana",

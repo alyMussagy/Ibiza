@@ -31,23 +31,47 @@ export async function LiveOffers({
         instantes.
       </p>
     );
-  return data?.length ? (
+  if (!data?.length)
+    return (
+      <div className="empty-state">
+        <Store size={32} />
+        <h3>Novas ofertas a caminho.</h3>
+        <p>Os anúncios dos parceiros aparecem aqui depois de aprovados.</p>
+        <Button asChild variant="outline">
+          <Link href="/ofertas">
+            <ArrowUpRight size={18} />
+            Explorar o catálogo
+          </Link>
+        </Button>
+      </div>
+    );
+  const { data: identity } = await db.auth.getUser();
+  const user = identity.user;
+  const signedIn = !!user?.email_confirmed_at;
+  let saved = new Set<string>();
+  if (signedIn) {
+    const favorites = await db
+      .from("favorites")
+      .select("listing_id")
+      .eq("profile_id", user.id)
+      .in(
+        "listing_id",
+        data.map((item) => item.id),
+      );
+    if (favorites.error)
+      throw new Error("Não foi possível consultar os favoritos.");
+    saved = new Set(favorites.data.map((item) => item.listing_id));
+  }
+  return (
     <div className="listing-grid">
       {data.map((item) => (
-        <OfferCard key={item.id} item={item} />
+        <OfferCard
+          key={item.id}
+          item={item}
+          signedIn={signedIn}
+          saved={saved.has(item.id)}
+        />
       ))}
-    </div>
-  ) : (
-    <div className="empty-state">
-      <Store size={32} />
-      <h3>Novas ofertas a caminho.</h3>
-      <p>Os anúncios dos parceiros aparecem aqui depois de aprovados.</p>
-      <Button asChild variant="outline">
-        <Link href="/ofertas">
-          <ArrowUpRight size={18} />
-          Explorar o catálogo
-        </Link>
-      </Button>
     </div>
   );
 }

@@ -70,7 +70,9 @@ export function OfferCard({
           <FavoriteButton id={item.id} saved={saved} />
         ) : (
           <Button asChild variant="outline">
-            <Link href="/login?next=/ofertas">
+            <Link
+              href={`/login?next=${encodeURIComponent(`/ofertas/${item.id}`)}`}
+            >
               <Heart size={18} aria-hidden="true" />
               Entrar para guardar
             </Link>
