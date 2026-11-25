@@ -1,4 +1,5 @@
 import { z } from "zod";
+export const oauthNextCookie = "ibiza_oauth_next";
 export const emailSchema = z.string().trim().email().toLowerCase().max(254);
 export const passwordSchema = z.string().min(12).max(128);
 export const registerSchema = z.object({
@@ -49,3 +50,4 @@ export function appOrigin() {
     throw new Error("Origem inválida.");
   return url.origin;
 }
+

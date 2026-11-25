@@ -16,6 +16,10 @@ export default async function Login({
       notice={
         p.notice === "invalid-link"
           ? "Esta ligação é inválida ou expirou. Solicita uma nova ligação de recuperação."
+          : p.notice === "google-unavailable"
+            ? "A entrada com Google está temporariamente indisponível. Tenta com email e palavra-passe."
+            : p.notice === "google-cancelled"
+              ? "A entrada com Google não foi concluída. Podes tentar novamente."
           : p.changed === "1"
             ? "Palavra-passe alterada. Entra com a nova palavra-passe."
             : undefined
@@ -23,3 +27,4 @@ export default async function Login({
     />
   );
 }
+

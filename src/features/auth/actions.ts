@@ -1,4 +1,5 @@
 "use server";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createServerSupabase, hasSupabaseConfig } from "@/lib/supabase/server";
 import {
@@ -8,8 +9,34 @@ import {
   passwordSchema,
   registerSchema,
   safeNext,
+  oauthNextCookie,
 } from "./validation";
 export type FormState = { error?: string; success?: string };
+export async function googleAuthAction(form: FormData) {
+  if (!hasSupabaseConfig()) redirect("/login?notice=google-unavailable");
+  let authUrl: string | undefined;
+  try {
+    const supabase = await createServerSupabase(true);
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${appOrigin()}/auth/callback` },
+    });
+    if (!error && data.url) {
+      (await cookies()).set(oauthNextCookie, safeNext(form.get("next")), {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: new URL(appOrigin()).protocol === "https:",
+        path: "/auth/callback",
+        maxAge: 600,
+      });
+      authUrl = data.url;
+    }
+  } catch {
+    // A configuration or provider error is shown on the login page.
+  }
+  if (authUrl) redirect(authUrl);
+  redirect("/login?notice=google-unavailable");
+}
 export async function authAction(
   _previous: FormState,
   form: FormData,
@@ -125,3 +152,4 @@ export async function logoutAction() {
   }
   redirect("/login");
 }
+

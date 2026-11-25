@@ -1106,6 +1106,37 @@ a.bg-primary {
   font-size: 13px;
   margin-top: 25px;
 }
+.social-auth {
+  margin-top: 24px;
+}
+.social-auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #777;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+.social-auth-divider::before,
+.social-auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e6e1df;
+}
+.social-auth form {
+  margin-top: 18px;
+}
+.google-auth-button {
+  width: 100%;
+  border-color: #d7d3d1;
+  box-shadow: 0 3px 12px rgb(35 22 22 / 5%);
+}
+.google-auth-button:hover {
+  border-color: #e3425c;
+  background: #fff7f8;
+}
 .account-links a {
   color: #c91c47;
   font-weight: 600;
@@ -1731,3 +1762,4 @@ a.bg-primary {
 }
 
 .photo-editor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1rem;margin:1.5rem 0}.photo-editor-grid article{padding:1rem;border:1px solid #e5e5e5;border-radius:18px}
+

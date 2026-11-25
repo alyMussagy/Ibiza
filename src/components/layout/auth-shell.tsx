@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { hasSupabaseConfig } from "@/lib/supabase/server";
 import { AuthForm, type AuthMode } from "@/components/forms/auth-form";
+import { googleAuthAction } from "@/features/auth/actions";
+import { GoogleAuthButton } from "@/components/forms/google-auth-button";
 export function AuthShell({
   mode,
   title,
@@ -48,6 +50,15 @@ export function AuthShell({
           </p>
         )}
         <AuthForm mode={mode} enabled={enabled} next={next} />
+        {(mode === "login" || mode === "register") && (
+          <div className="social-auth">
+            <div className="social-auth-divider"><span>ou continua com</span></div>
+            <form action={googleAuthAction}>
+              <input type="hidden" name="next" value={next || "/comecar"} />
+              <GoogleAuthButton enabled={enabled} />
+            </form>
+          </div>
+        )}
         <div className="account-links">
           {mode === "login" ? (
             <>
@@ -64,3 +75,4 @@ export function AuthShell({
     </main>
   );
 }
+
