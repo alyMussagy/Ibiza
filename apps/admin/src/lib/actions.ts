@@ -1,8 +1,35 @@
 "use server";
 import { redirect } from "next/navigation";
-import { createServerSupabase } from "@/lib/supabase/server";
+import { cookies } from "next/headers";
+import { createServerSupabase, hasSupabaseConfig } from "@/lib/supabase/server";
 import { loginSchema } from "@/features/auth/validation";
-import { adminNext } from "./auth";
+import { adminNext, adminOAuthNextCookie, adminOrigin } from "./auth";
+
+export async function googleSignInAdmin(form: FormData) {
+  if (!hasSupabaseConfig()) redirect("/login?notice=google-unavailable");
+  let authUrl: string | undefined;
+  try {
+    const supabase = await createServerSupabase(true);
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${adminOrigin()}/auth/callback` },
+    });
+    if (!error && data.url) {
+      (await cookies()).set(adminOAuthNextCookie, adminNext(form.get("next")), {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: new URL(adminOrigin()).protocol === "https:",
+        path: "/auth/callback",
+        maxAge: 600,
+      });
+      authUrl = data.url;
+    }
+  } catch {
+    // Show a safe message on the login page.
+  }
+  if (authUrl) redirect(authUrl);
+  redirect("/login?notice=google-unavailable");
+}
 
 export async function signInAdmin(
   _previous: { error?: string },

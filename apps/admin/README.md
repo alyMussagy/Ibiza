@@ -16,6 +16,7 @@ Criar um segundo projeto Vercel a partir do mesmo repositório GitHub, com:
 - **Framework:** Next.js
 - **Include source files outside of the Root Directory:** ligado, pois esta aplicação importa código partilhado de `src/` na raiz.
 - **Variáveis Production e Preview:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` e `NEXT_PUBLIC_PUBLIC_APP_URL=https://ibiza-mz.vercel.app`.
+- **OAuth Google:** autorizar `https://ibiza-admin-blue.vercel.app/auth/callback` nos Redirect URLs do Supabase. `NEXT_PUBLIC_ADMIN_APP_URL` pode definir outra origem para o painel; a origem publicada acima é o padrão.
 - **Production Branch:** a mesma branch usada para publicar o site público, após validar a versão administrativa.
 
 Não usar a chave `service_role` no navegador ou nas variáveis públicas. A aplicação utiliza a chave publicável e confirma o papel de administrador no servidor; o Supabase continua a impor as políticas RLS. A conta administradora inicia uma sessão separada no domínio do painel. Nenhuma migração SQL é necessária para esta divisão.
