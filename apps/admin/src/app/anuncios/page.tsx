@@ -1,4 +1,3 @@
-import { AdminNav } from "@admin/components/navigation";
 import { PhotoGallery } from "@/components/marketplace/photo-gallery";
 import Link from "next/link";
 import { ArrowLeft, ClipboardCheck } from "lucide-react";
@@ -18,7 +17,6 @@ export default async function ListingModeration() {
     throw new Error("Não foi possível carregar os anúncios para revisão.");
   return (
     <main id="main" className="shell category-page">
-      <AdminNav current="/anuncios" />
       <span className="eyebrow coral">ADMINISTRAÇÃO</span>
       <h1>Ofertas prontas para revisão.</h1>
       <p className="lead">

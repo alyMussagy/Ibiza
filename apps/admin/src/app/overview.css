@@ -23,6 +23,8 @@
 .ops-period a[aria-current=page] { color: #fff; background: #d71949; box-shadow: 0 3px 10px #d7194929; }
 .ops-period a:not([aria-current]):hover { color: #d71949; background: #fff0f2; }
 .ops-discovery-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+.ops-location-panel { grid-column: 1 / -1; }
+.ops-location-panel .ops-rank-list { grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 32px; }
 .ops-panel { min-width: 0; padding: 24px; border: 1px solid #e5e1dc; border-radius: 20px; background: #fff; box-shadow: 0 6px 22px #12243008; }
 .ops-panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
 .ops-panel-head > svg { color: #d71949; }
@@ -62,6 +64,6 @@
 .ops-activity time { color: #71808a; font-size: .76rem; }
 .ops-activity-dot { width: 8px; height: 8px; border-radius: 50%; background: #e4335d; }
 @media (max-width: 950px) { .ops-queue,.ops-performance { grid-template-columns: repeat(2,minmax(0,1fr)); } .ops-intro { align-items: flex-start; flex-direction: column; } }
-@media (max-width: 690px) { .ops-dashboard { padding-top: 18px; } .ops-intro { min-height: 245px; padding: 30px 25px; border-radius: 20px; } .ops-intro h1 { font-size: 2.3rem; } .ops-live { font-size: .7rem; } .ops-dashboard .admin-navigation { margin-bottom: 30px; } .ops-section-head { align-items: flex-start; flex-direction: column; } .ops-discovery-grid { grid-template-columns: 1fr; } .ops-queue,.ops-performance { gap: 10px; } .ops-queue-card { min-height: 157px; padding: 16px; } .ops-card-arrow { right: 15px; bottom: 14px; } .ops-activity li { grid-template-columns: 10px minmax(0,1fr); } .ops-activity time { grid-column: 2; margin-top: -14px; } }
+@media (max-width: 690px) { .ops-dashboard { padding-top: 18px; } .ops-intro { min-height: 245px; padding: 30px 25px; border-radius: 20px; } .ops-intro h1 { font-size: 2.3rem; } .ops-live { font-size: .7rem; } .ops-section-head { align-items: flex-start; flex-direction: column; } .ops-discovery-grid { grid-template-columns: 1fr; } .ops-location-panel .ops-rank-list { grid-template-columns: 1fr; } .ops-queue,.ops-performance { gap: 10px; } .ops-queue-card { min-height: 157px; padding: 16px; } .ops-card-arrow { right: 15px; bottom: 14px; } .ops-activity li { grid-template-columns: 10px minmax(0,1fr); } .ops-activity time { grid-column: 2; margin-top: -14px; } }
 @media (max-width: 420px) { .ops-queue,.ops-performance { grid-template-columns: 1fr; } .ops-queue-card { min-height: 130px; } .ops-performance > div { min-height: 120px; } }
 @media (prefers-reduced-motion: reduce) { .ops-queue-card { transition: none; } }

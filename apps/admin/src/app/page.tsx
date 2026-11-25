@@ -4,7 +4,6 @@ import {
   CheckCheck, Clock3, Compass, Monitor, Smartphone, Store, Tablet, UsersRound,
 } from "lucide-react";
 import { requireAdmin } from "@admin/lib/auth";
-import { AdminNav } from "@admin/components/navigation";
 import { formatPeriod } from "@/features/reservations/validation";
 import { auditLabels } from "@/features/admin/filters";
 import "./overview.css";
@@ -18,13 +17,14 @@ type Traffic = {
   devices: { mobile: number; desktop: number; tablet: number };
   sources: Ranked[];
   lead_sources: Ranked[];
+  locations: { country: string | null; region: string | null; city: string | null; count: number }[];
   trend: { day: string; count: number }[];
 };
 const number = (value: number | null) => new Intl.NumberFormat("pt-MZ").format(value ?? 0);
 
-function RankedPanel({ title, description, items, empty }: { title: string; description: string; items: Ranked[]; empty: string }) {
+function RankedPanel({ title, description, items, empty, className = "" }: { title: string; description: string; items: Ranked[]; empty: string; className?: string }) {
   const max = Math.max(1, ...items.map((item) => item.count));
-  return <section className="ops-panel">
+  return <section className={`ops-panel ${className}`}>
     <div className="ops-panel-head"><div><h3>{title}</h3><p>{description}</p></div></div>
     {items.length ? <ol className="ops-rank-list">{items.map((item) => <li key={item.source}>
       <div><span>{item.source}</span><strong>{number(item.count)}</strong></div>
@@ -98,12 +98,18 @@ export default async function AdminOverview({ searchParams }: { searchParams: Pr
     { label: "Tablet", value: devices.tablet, Icon: Tablet },
   ];
   const activity = audit.data as { id: string; action: string; created_at: string }[] | null;
+  const countryNames = new Intl.DisplayNames(["pt-MZ"], { type: "region" });
+  const locations = (traffic?.locations ?? []).map((item) => ({
+    source: item.country
+      ? `${item.city || item.region || "Cidade não identificada"} · ${countryNames.of(item.country) || item.country}`
+      : "Localização indisponível",
+    count: item.count,
+  }));
 
   return <main id="main" className="shell ops-dashboard">
     <header className="ops-intro"><div><span className="eyebrow coral">IBIZA · CENTRO DE OPERAÇÕES</span>
       <h1>O pulso da plataforma.</h1><p>Parceiros, reservas e descoberta do IBIZA numa leitura clara para decidir o próximo passo.</p></div>
       <span className="ops-live"><Activity size={16} aria-hidden="true" /> Actualizado ao abrir</span></header>
-    <AdminNav current="/" />
 
     <section className="ops-section" aria-labelledby="ops-now-title"><div className="ops-section-head"><div><span className="ops-kicker">AGORA</span><h2 id="ops-now-title">O que precisa de atenção</h2></div><span className="ops-muted">Horário de Moçambique</span></div>
       <div className="ops-queue">{queue.map(({ label, value, href, Icon }) => <Link href={href} className="ops-queue-card" key={label}>
@@ -121,6 +127,7 @@ export default async function AdminOverview({ searchParams }: { searchParams: Pr
           </div>)}</div> : <p className="ops-empty">{traffic ? "Ainda não há sessões para comparar." : "A medição de dispositivos está a ser preparada."}</p>}</section>
         <RankedPanel title="Origem das visitas" description="Canal da primeira visita de cada sessão" items={traffic?.sources ?? []} empty={traffic ? "As origens aparecerão com as primeiras sessões." : "A medição de origens está a ser preparada."} />
         <RankedPanel title="Leads de parceiros" description={`${number(counts[8].count)} candidaturas no período · primeira origem conhecida`} items={traffic?.lead_sources ?? []} empty={traffic ? "Ainda não há candidaturas neste período." : "A atribuição de candidaturas está a ser preparada."} />
+        <RankedPanel className="ops-location-panel" title="De onde nos visitam" description="País e cidade aproximados pela rede · sem localização precisa" items={locations} empty={traffic ? "A localização das novas visitas aparecerá aqui." : "A medição de localização está a ser preparada."} />
       </div></section>
 
     <section className="ops-section" aria-labelledby="ops-work-title"><div className="ops-section-head"><div><span className="ops-kicker">OPERAÇÃO</span><h2 id="ops-work-title">Reservas e catálogo</h2></div><Link className="ops-link" href="/reservas">Gerir reservas <ArrowRight size={16} /></Link></div>

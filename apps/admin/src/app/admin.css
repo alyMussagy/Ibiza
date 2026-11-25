@@ -1,14 +1,33 @@
 .admin-app { background: #f7f5f2; color: #17222c; min-height: 100vh; }
-.admin-app-header { min-height: 76px; padding: 0 max(24px, calc((100vw - 1240px) / 2)); display: flex; align-items: center; justify-content: space-between; gap: 24px; background: #122430; color: #fff; border-bottom: 3px solid #ff4967; }
+.admin-app-header { min-height: 76px; padding: 0 max(24px, calc((100vw - 1240px) / 2)); display: flex; align-items: center; justify-content: space-between; gap: 24px; background: #fff; color: #122430; border-bottom: 1px solid #eee6e4; }
 .admin-app-brand { display: inline-flex; align-items: center; gap: 15px; color: inherit; text-decoration: none; font-weight: 650; }
-.admin-app-brand-mark { color: #ff5570; font-size: 1.45rem; font-weight: 850; letter-spacing: -.07em; }
-.admin-app-brand-divider { width: 1px; height: 24px; background: #65717a; }
+.admin-app-brand-mark { display: block; width: 146px; height: 49px; object-fit: cover; object-position: center; }
+.admin-app-brand-divider { width: 1px; height: 24px; background: #d9d1ce; }
 .admin-app-header-actions { display: flex; align-items: center; gap: 22px; font-size: .875rem; }
-.admin-app-header-actions a, .admin-app-logout { color: #fff; display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
+.admin-app-header-actions a, .admin-app-logout { color: #122430; display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
 .admin-app-logout { border: 0; background: transparent; padding: 8px; font: inherit; cursor: pointer; }
 .admin-app-header-actions a:hover, .admin-app-logout:hover { color: #ff8ea1; }
 .admin-app-header-actions a:focus-visible, .admin-app-logout:focus-visible, .admin-app-brand:focus-visible { outline: 3px solid #ff8ea1; outline-offset: 4px; border-radius: 4px; }
-.admin-app-private { display: inline-flex; align-items: center; gap: 6px; color: #b9cad2; }
+.admin-app-private { display: inline-flex; align-items: center; gap: 6px; color: #52616a; }
+.admin-menu { position: relative; z-index: 10; background: #fff; border-bottom: 1px solid #eee6e4; }
+.admin-menu-inner { display: flex; align-items: center; gap: 30px; min-height: 59px; overflow-x: auto; scrollbar-width: none; }
+.admin-menu-inner::-webkit-scrollbar { display: none; }
+.admin-menu a { position: relative; display: inline-flex; align-items: center; gap: 9px; min-height: 59px; flex: none; color: #5c6870; font-size: .84rem; font-weight: 650; text-decoration: none; }
+.admin-menu a:hover,.admin-menu a[aria-current=page] { color: #ca1748; }
+.admin-menu a[aria-current=page]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-radius: 3px; background: #d71949; }
+.admin-menu a:focus-visible { outline: 3px solid #d71949; outline-offset: -4px; border-radius: 8px; }
+.admin-menu-pending { width: 5px; height: 5px; margin-left: -6px; border-radius: 50%; background: #d71949; opacity: 0; transition: opacity .15s; }
+.admin-menu-pending.is-pending { opacity: 1; animation: admin-pulse .7s ease-in-out infinite alternate; }
+@keyframes admin-pulse { to { opacity: .3; transform: scale(.7); } }
+.admin-loading { min-height: 60vh; padding: 56px 0; }
+.admin-loading-line,.admin-loading-grid span { display: block; border-radius: 12px; background: #eae4e1; animation: admin-shimmer 1.2s ease-in-out infinite alternate; }
+.admin-loading-line { width: 45%; height: 16px; margin: 16px 0; }
+.admin-loading-line.short { width: 120px; height: 10px; }
+.admin-loading-line.title { width: min(500px, 80%); height: 48px; }
+.admin-loading-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; margin: 42px 0 18px; }
+.admin-loading-grid span { height: 150px; }
+.admin-loading p { color: #607079; font-size: .84rem; }
+@keyframes admin-shimmer { to { opacity: .45; } }
 .admin-app main.category-page { padding-top: 56px; padding-bottom: 100px; }
 .admin-app .admin-navigation { margin: 32px 0; }
 .admin-app .admin-metric { background: #fff; }
@@ -28,5 +47,5 @@
 .admin-login-card .ibiza-button { width: 100%; }
 .admin-google-form { margin: 24px 0; }
 .admin-login-divider { margin: 24px 0; }
-@media (max-width: 760px) { .admin-app-header { padding: 16px 20px; flex-wrap: wrap; } .admin-app-header-actions { gap: 13px; } .admin-app-private { display: none; } .admin-login-wrap { grid-template-columns: 1fr; gap: 30px; padding: 55px 24px 70px; background-position: 58% center; background-image: linear-gradient(rgba(7, 30, 43, .75), rgba(7, 30, 43, .48)), url('https://ibiza-mz.vercel.app/images/auth-tofo.webp'); } .admin-login-copy h1 { font-size: 3.2rem; } }
+@media (max-width: 760px) { .admin-app-header { padding: 12px 20px; flex-wrap: wrap; } .admin-app-brand-mark { width: 122px; height: 42px; } .admin-app-header-actions { gap: 13px; } .admin-app-private { display: none; } .admin-menu-inner { gap: 22px; min-height: 55px; } .admin-menu a { min-height: 55px; } .admin-loading-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .admin-login-wrap { grid-template-columns: 1fr; gap: 30px; padding: 55px 24px 70px; background-position: 58% center; background-image: linear-gradient(rgba(7, 30, 43, .75), rgba(7, 30, 43, .48)), url('https://ibiza-mz.vercel.app/images/auth-tofo.webp'); } .admin-login-copy h1 { font-size: 3.2rem; } }
 @media (prefers-reduced-motion: reduce) { .admin-app * { scroll-behavior: auto !important; } }

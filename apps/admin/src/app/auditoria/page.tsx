@@ -1,6 +1,6 @@
 import { History, Search } from "lucide-react";
 import { requireAdmin } from "@admin/lib/auth";
-import { AdminNav, AdminPagination } from "@admin/components/navigation";
+import { AdminPagination } from "@admin/components/navigation";
 import { Button } from "@/components/ui/button";
 import { FormSelect } from "@/components/ui/form-select";
 import {
@@ -54,7 +54,6 @@ export default async function Audit({
       <p className="lead">
         Consulta quem realizou cada acção e quando aconteceu.
       </p>
-      <AdminNav current="/auditoria" />
       <form method="get" action="/auditoria" className="offer-filters">
         <label>
           Área

@@ -1,5 +1,5 @@
 import { PartnerStatusForm } from "@/components/forms/partner-status-form";
-import { AdminNav, AdminPagination } from "@admin/components/navigation";
+import { AdminPagination } from "@admin/components/navigation";
 import { adminPage, adminHref } from "@/features/admin/filters";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -49,7 +49,6 @@ export default async function PartnersAdmin({
     throw new Error("Não foi possível carregar os negócios.");
   return (
     <main id="main" className="shell category-page">
-      <AdminNav current="/parceiros" />
       <span className="eyebrow coral">IBIZA ADMIN</span>
       <h1>Candidaturas de parceiros.</h1>
       <p className="lead">

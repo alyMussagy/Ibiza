@@ -1,42 +1,6 @@
 import Link from "next/link";
-import {
-  LayoutDashboard,
-  Building2,
-  Store,
-  CalendarDays,
-  History,
-  ArrowLeft,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-const sections = [
-  { href: "/", label: "Visão geral", Icon: LayoutDashboard },
-  { href: "/parceiros", label: "Parceiros", Icon: Building2 },
-  { href: "/anuncios", label: "Anúncios", Icon: Store },
-  { href: "/reservas", label: "Reservas", Icon: CalendarDays },
-  { href: "/auditoria", label: "Auditoria", Icon: History },
-];
-export function AdminNav({ current }: { current: string }) {
-  return (
-    <nav className="admin-navigation" aria-label="Administração IBIZA">
-      {sections.map(({ href, label, Icon }) => (
-        <Button
-          key={href}
-          asChild
-          variant={current === href ? "default" : "outline"}
-        >
-          <Link
-            href={href}
-            aria-current={current === href ? "page" : undefined}
-          >
-            <Icon size={18} aria-hidden="true" />
-            {label}
-          </Link>
-        </Button>
-      ))}
-    </nav>
-  );
-}
 export function AdminPagination({
   page,
   count,

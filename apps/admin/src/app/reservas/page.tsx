@@ -2,7 +2,7 @@ import { ReservationSupport } from "@/components/forms/reservation-support";
 import Link from "next/link";
 import { Search, RotateCcw, CalendarDays } from "lucide-react";
 import { requireAdmin } from "@admin/lib/auth";
-import { AdminNav, AdminPagination } from "@admin/components/navigation";
+import { AdminPagination } from "@admin/components/navigation";
 import { ReservationCard } from "@/components/marketplace/reservation-card";
 import { Button } from "@/components/ui/button";
 import { FormSelect } from "@/components/ui/form-select";
@@ -55,7 +55,6 @@ export default async function AdminReservations({
       <span className="eyebrow coral">ACOMPANHAMENTO OPERACIONAL</span>
       <h1>Reservas da plataforma.</h1>
       <p className="lead">Consulta pedidos, datas e decisões dos parceiros.</p>
-      <AdminNav current="/reservas" />
       <form action="/reservas" method="get" className="offer-filters">
         <label>
           Oferta ou nome do cliente

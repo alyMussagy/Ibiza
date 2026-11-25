@@ -60,7 +60,10 @@ export default function Privacy() {
         registos técnicos de acesso e segurança. Para compreender como o IBIZA
         é encontrado, contamos sessões no próprio site e guardamos o canal de
         origem, a campanha quando indicada na ligação, a primeira página e o
-        tipo de dispositivo (telemóvel, computador ou tablet). Uma sessão pode
+        tipo de dispositivo (telemóvel, computador ou tablet). Também recebemos
+        da infraestrutura de alojamento uma estimativa de país, região e cidade
+        baseada na rede de acesso. Esta indicação pode ser imprecisa e não pede
+        a localização exacta do teu dispositivo. Uma sessão pode
         ser associada à conta depois de iniciares sessão, para atribuir uma
         candidatura de parceiro ao seu canal de origem. Não guardamos o IP nem
         o endereço completo da página de origem nessa medição. Não integramos

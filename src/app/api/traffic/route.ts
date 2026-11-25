@@ -25,6 +25,19 @@ export async function POST(request: NextRequest) {
 
   const device = /ipad|tablet/i.test(agent) ? "tablet" :
     /mobile|android|iphone/i.test(agent) ? "mobile" : "desktop";
+  const rawCountry = request.headers.get("x-vercel-ip-country")?.toUpperCase() || "";
+  const country = /^[A-Z]{2}$/.test(rawCountry) ? rawCountry : null;
+  const rawRegion = request.headers.get("x-vercel-ip-country-region")?.toUpperCase() || "";
+  const region = country && /^[A-Z0-9]{1,3}$/.test(rawRegion) ? rawRegion : null;
+  let city: string | null = null;
+  if (country) {
+    try {
+      city = decodeURIComponent(request.headers.get("x-vercel-ip-city") || "")
+        .replace(/[\p{Cc}\p{Cf}]/gu, "").trim().slice(0, 80) || null;
+    } catch {
+      city = null;
+    }
+  }
   try {
     const supabase = await createServerSupabase();
     const { error } = await supabase.rpc("record_traffic_session", {
@@ -33,6 +46,9 @@ export async function POST(request: NextRequest) {
       p_campaign: parsed.data.campaign || null,
       p_device: device,
       p_landing_path: parsed.data.landingPath,
+      p_country_code: country,
+      p_region_code: region,
+      p_city: city,
     });
     if (!error) return new Response(null, { status: 204 });
   } catch {

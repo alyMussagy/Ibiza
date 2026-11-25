@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { categories } from "@/features/listings/catalog";
 import { LiveOffers } from "@/components/marketplace/live-offers";
 import { SearchForm } from "@/components/marketplace/search-form";
+import { CategoryRail } from "@/components/marketplace/category-rail";
 export function generateStaticParams() {
   return categories.map((c) => ({ category: c.slug }));
 }
@@ -30,6 +31,7 @@ export default async function CategoryPage({
       <span className="eyebrow coral">DESCOBRE INHAMBANE</span>
       <h1>{c.label}</h1>
       <p className="lead">{c.description}</p>
+      <CategoryRail current={c.slug} />
       <SearchForm category={c.slug} />
       <LiveOffers category={c.slug} limit={12} />
     </main>
