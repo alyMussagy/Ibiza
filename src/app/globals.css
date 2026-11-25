@@ -1809,8 +1809,9 @@ a.bg-primary {
 .account-page { gap: 48px; padding-top: 48px; align-items: stretch; }
 .account-story { position: relative; overflow: hidden; background: #21404c; padding: 48px 42px; min-height: 610px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; }
 .account-story > img { object-fit: cover; object-position: center; }
-.account-story-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(12 32 44 / 64%) 0%, rgb(9 26 36 / 25%) 48%, rgb(10 23 28 / 78%) 100%); }
+.account-story-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(10 28 37 / 51%) 0%, rgb(10 27 33 / 10%) 48%, rgb(9 24 28 / 68%) 100%); }
 .account-story-content, .account-story-bottom { position: relative; z-index: 1; }
+.account-story-content { text-shadow: 0 2px 16px rgb(5 20 25 / 32%); }
 .account-story .eyebrow, .account-story p { color: #fff; }
 .account-story h1 { max-width: 500px; }
 .account-story p { max-width: 420px; font-size: 16px; line-height: 1.6; }
