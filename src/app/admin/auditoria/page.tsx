@@ -2,6 +2,7 @@ import { History, Search } from "lucide-react";
 import { requireAdmin } from "@/features/auth/session";
 import { AdminNav, AdminPagination } from "@/components/admin/navigation";
 import { Button } from "@/components/ui/button";
+import { FormSelect } from "@/components/ui/form-select";
 import {
   adminPage,
   adminDate,
@@ -57,14 +58,18 @@ export default async function Audit({
       <form method="get" action="/admin/auditoria" className="offer-filters">
         <label>
           Área
-          <select name="area" defaultValue={group}>
-            <option value="">Todas</option>
-            {Object.entries(groups).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
+          <FormSelect
+            name="area"
+            label="Área"
+            defaultValue={group}
+            options={[
+              { value: "", label: "Todas" },
+              ...Object.entries(groups).map(([value, label]) => ({
+                value,
+                label,
+              })),
+            ]}
+          />
         </label>
         <label>
           Desde

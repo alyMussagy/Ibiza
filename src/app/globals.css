@@ -1838,3 +1838,30 @@ a.bg-primary {
 @media (prefers-reduced-motion: reduce) {
   .search-choice-trigger svg { transition: none; }
 }
+
+/* Shared IBIZA selector for filters and forms. The popup is rendered in a portal. */
+.form-select { display: block; position: relative; width: 100%; min-width: 0; }
+.form-select-trigger { display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-width: 0; min-height: 49px; padding: 11px 15px; border: 1px solid #d9d2d4; border-radius: 12px; background: #fff; color: #25222a; font: inherit; font-size: 14px; font-weight: 500; text-align: left; box-shadow: 0 1px 2px rgb(20 20 25 / 3%); transition: border-color .16s ease, box-shadow .16s ease, background-color .16s ease; }
+.form-select-trigger:hover { border-color: #c91c47; background: #fffafb; }
+.form-select-trigger:focus-visible, .form-select-trigger[data-state="open"] { outline: none; border-color: #c91c47; box-shadow: 0 0 0 3px rgb(201 28 71 / 15%); }
+.form-select-trigger[aria-invalid="true"] { border-color: #bd173f; }
+.form-select-trigger[data-disabled] { opacity: .55; cursor: not-allowed; }
+.form-select-trigger svg { flex: none; color: #bd173f; transition: transform .16s ease; }
+.form-select-trigger[data-state="open"] svg { transform: rotate(180deg); }
+.form-select-content { z-index: 100; width: var(--radix-select-trigger-width); min-width: min(260px, calc(100vw - 32px)); max-height: min(360px, var(--radix-select-content-available-height)); overflow: hidden; border: 1px solid #ebdfe2; border-radius: 16px; background: #fff; box-shadow: 0 22px 60px rgb(43 22 29 / 18%), 0 3px 12px rgb(43 22 29 / 7%); }
+.form-select-viewport { padding: 7px; }
+.form-select-item { position: relative; display: flex; align-items: center; min-height: 44px; padding: 10px 38px 10px 13px; border-radius: 9px; color: #29232a; font-size: 14px; font-weight: 500; line-height: 1.35; cursor: pointer; user-select: none; outline: none; }
+.form-select-item[data-highlighted] { background: #fff0f3; color: #a7153c; }
+.form-select-item[data-state="checked"] { font-weight: 700; }
+.form-select-item[data-disabled] { color: #9c9497; cursor: not-allowed; }
+.form-select-check { position: absolute; right: 12px; display: inline-flex; color: #c91c47; }
+.form-select-native { position: absolute !important; left: 0; bottom: 0; width: 1px !important; height: 1px !important; padding: 0 !important; border: 0 !important; opacity: 0; pointer-events: none; }
+.form-select-error { display: block; margin-top: 6px; color: #aa173c; font-size: 12px; font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .form-select-trigger, .form-select-trigger svg { transition: none; } }
+.confirm-overlay { position: fixed; inset: 0; z-index: 110; background: rgb(11 17 24 / 60%); backdrop-filter: blur(3px); }
+.confirm-dialog { position: fixed; z-index: 111; top: 50%; left: 50%; width: min(440px, calc(100vw - 32px)); padding: 30px; border: 1px solid #eadfe2; border-radius: 22px; background: #fff; box-shadow: 0 30px 90px rgb(15 18 24 / 25%); transform: translate(-50%, -50%); }
+.confirm-dialog h2 { margin: 14px 0 10px; color: #24222a; font-size: 26px; line-height: 1.15; }
+.confirm-dialog p { margin: 0; color: #6b6268; font-size: 15px; line-height: 1.6; }
+.confirm-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.confirm-actions button { min-height: 45px; }
+@media (max-width: 480px) { .confirm-actions { flex-direction: column-reverse; } .confirm-actions button { width: 100%; } }

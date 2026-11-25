@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CalendarDays, Search, Send, LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FormSelect } from "@/components/ui/form-select";
 import { createClient } from "@/lib/supabase/client";
 export function StayInventoryForm({
   listings,
@@ -46,13 +47,12 @@ export function StayInventoryForm({
     >
       <label>
         Alojamento
-        <select name="listing" required>
-          {listings.map((l) => (
-            <option key={l.id} value={l.id}>
-              {l.title}
-            </option>
-          ))}
-        </select>
+        <FormSelect
+          name="listing"
+          label="Alojamento"
+          required
+          options={listings.map((l) => ({ value: l.id, label: l.title }))}
+        />
       </label>
       <label>
         Primeira noite

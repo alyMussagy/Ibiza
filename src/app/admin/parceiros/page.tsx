@@ -3,6 +3,7 @@ import { AdminNav, AdminPagination } from "@/components/admin/navigation";
 import { adminPage, adminHref } from "@/features/admin/filters";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FormSelect } from "@/components/ui/form-select";
 import { requireAdmin } from "@/features/auth/session";
 import { ReviewForm } from "@/components/forms/review-form";
 import { statusLabels } from "@/features/partners/validation";
@@ -58,14 +59,17 @@ export default async function PartnersAdmin({
       <form method="get" action="/admin/parceiros" className="offer-filters">
         <label>
           Estado da candidatura
-          <select name="estado" defaultValue={status}>
-            <option value="">Todos</option>
-            {["pending", "approved", "rejected", "suspended"].map((value) => (
-              <option key={value} value={value}>
-                {statusLabels[value]}
-              </option>
-            ))}
-          </select>
+          <FormSelect
+            name="estado"
+            label="Estado da candidatura"
+            defaultValue={status}
+            options={[
+              { value: "", label: "Todos" },
+              ...["pending", "approved", "rejected", "suspended"].map(
+                (value) => ({ value, label: statusLabels[value] }),
+              ),
+            ]}
+          />
         </label>
         <Button>
           <Search size={18} aria-hidden="true" />

@@ -3,6 +3,7 @@ import { ShieldCheck, LoaderCircle } from "lucide-react";
 import { useActionState } from "react";
 import { reviewPartner } from "@/features/partners/actions";
 import { Button } from "@/components/ui/button";
+import { FormSelect } from "@/components/ui/form-select";
 export function ReviewForm({ id }: { id: string }) {
   const [state, action, pending] = useActionState(reviewPartner, {});
   return (
@@ -10,11 +11,16 @@ export function ReviewForm({ id }: { id: string }) {
       <input type="hidden" name="applicationId" value={id} />
       <label>
         Decisão
-        <select name="decision" required>
-          <option value="">Selecciona</option>
-          <option value="approved">Aprovar parceiro</option>
-          <option value="rejected">Não aprovar</option>
-        </select>
+        <FormSelect
+          name="decision"
+          label="Decisão"
+          required
+          options={[
+            { value: "", label: "Selecciona" },
+            { value: "approved", label: "Aprovar parceiro" },
+            { value: "rejected", label: "Não aprovar" },
+          ]}
+        />
       </label>
       <label>
         Justificação (visível ao candidato)

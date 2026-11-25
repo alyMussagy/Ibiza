@@ -2,8 +2,8 @@
 import { useActionState } from "react";
 import { Save, Send, LoaderCircle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FormSelect } from "@/components/ui/form-select";
 import { saveListing, reviewListing } from "@/features/listings/actions";
-import { localities } from "@/features/listings/localities";
 export type EditableListing = {
   id: string;
   organization_id: string;
@@ -29,19 +29,15 @@ export function ListingForm({
       <input type="hidden" name="revision" value={item?.revision ?? 1} />
       <label>
         Negócio
-        <select
+        <FormSelect
           name="organizationId"
+          label="Negócio"
           defaultValue={item?.organization_id}
           required
-        >
-          {organizations
+          options={organizations
             .filter((o) => !item || o.id === item.organization_id)
-            .map((o) => (
-              <option key={o.id} value={o.id}>
-                {o.name}
-              </option>
-            ))}
-        </select>
+            .map((o) => ({ value: o.id, label: o.name }))}
+        />
       </label>
       <label>
         Título
@@ -56,13 +52,18 @@ export function ListingForm({
       </label>
       <label>
         Categoria
-        <select name="category" defaultValue={item?.category ?? "experiencias"}>
-          <option value="estadias">Alojamento</option>
-          <option value="experiencias">Experiência</option>
-          <option value="restaurantes">Restaurante</option>
-          <option value="eventos">Evento</option>
-          <option value="destinos">Destino</option>
-        </select>
+        <FormSelect
+          name="category"
+          label="Categoria"
+          defaultValue={item?.category ?? "experiencias"}
+          options={[
+            { value: "estadias", label: "Alojamento" },
+            { value: "experiencias", label: "Experiência" },
+            { value: "restaurantes", label: "Restaurante" },
+            { value: "eventos", label: "Evento" },
+            { value: "destinos", label: "Destino" },
+          ]}
+        />
       </label>
       <label>
         Localização
@@ -73,11 +74,7 @@ export function ListingForm({
           maxLength={120}
           required
           placeholder="Ex.: Tofo, Inhambane"
-          list="listing-localities"
         />
-        <datalist id="listing-localities">
-          {localities.map((place) => <option key={place.value} value={place.value} />)}
-        </datalist>
       </label>
       <label>
         Descrição
@@ -104,13 +101,15 @@ export function ListingForm({
       </label>
       <label>
         Preço por
-        <select name="unit" defaultValue={item?.price_unit ?? "pessoa"}>
-          {["pessoa", "noite", "entrada", "mesa", "grupo"].map((u) => (
-            <option key={u} value={u}>
-              {u}
-            </option>
-          ))}
-        </select>
+        <FormSelect
+          name="unit"
+          label="Preço por"
+          defaultValue={item?.price_unit ?? "pessoa"}
+          options={["pessoa", "noite", "entrada", "mesa", "grupo"].map((u) => ({
+            value: u,
+            label: u,
+          }))}
+        />
       </label>
       <p className="notice">
         Ao editar um anúncio publicado, este sai do catálogo até nova aprovação.
@@ -157,11 +156,16 @@ export function ListingReviewForm({
       <input type="hidden" name="revision" value={revision} />
       <label>
         Decisão
-        <select required name="decision">
-          <option value="">Selecciona</option>
-          <option value="approved">Aprovar e publicar</option>
-          <option value="rejected">Pedir ajustes</option>
-        </select>
+        <FormSelect
+          name="decision"
+          label="Decisão"
+          required
+          options={[
+            { value: "", label: "Selecciona" },
+            { value: "approved", label: "Aprovar e publicar" },
+            { value: "rejected", label: "Pedir ajustes" },
+          ]}
+        />
       </label>
       <label>
         Justificação

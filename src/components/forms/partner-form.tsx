@@ -3,6 +3,7 @@ import { Send, LoaderCircle } from "lucide-react";
 import { useActionState } from "react";
 import { submitPartner } from "@/features/partners/actions";
 import { Button } from "@/components/ui/button";
+import { FormSelect } from "@/components/ui/form-select";
 export function PartnerForm({ email }: { email: string }) {
   const [state, action, pending] = useActionState(submitPartner, {});
   return (
@@ -19,13 +20,18 @@ export function PartnerForm({ email }: { email: string }) {
       </label>
       <label>
         Categoria
-        <select name="businessType" required>
-          <option value="">Selecciona uma categoria</option>
-          <option value="estadias">Alojamento</option>
-          <option value="eventos">Organização de eventos</option>
-          <option value="restaurantes">Restaurante ou bar</option>
-          <option value="experiencias">Experiências e passeios</option>
-        </select>
+        <FormSelect
+          name="businessType"
+          label="Categoria"
+          required
+          options={[
+            { value: "", label: "Selecciona uma categoria" },
+            { value: "estadias", label: "Alojamento" },
+            { value: "eventos", label: "Organização de eventos" },
+            { value: "restaurantes", label: "Restaurante ou bar" },
+            { value: "experiencias", label: "Experiências e passeios" },
+          ]}
+        />
       </label>
       <label>
         Email de contacto

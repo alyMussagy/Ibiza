@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { createServerSupabase, hasSupabaseConfig } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
+import { FormSelect } from "@/components/ui/form-select";
 import { OfferCard } from "@/components/marketplace/offer-card";
 import { categories } from "@/features/listings/catalog";
 import { localities } from "@/features/listings/localities";
@@ -91,27 +92,31 @@ export default async function Offers({
         </label>
         <label>
           Localização
-          <input
+          <FormSelect
             name="local"
+            label="Localização"
             defaultValue={f.location}
-            maxLength={80}
-            placeholder="Tofo, Barra, Vilanculos…"
-            list="offer-localities"
+            options={[
+              { value: "", label: "Toda Inhambane" },
+              ...localities,
+              ...(f.location &&
+              !localities.some((place) => place.value === f.location)
+                ? [{ value: f.location, label: f.location }]
+                : []),
+            ]}
           />
-          <datalist id="offer-localities">
-            {localities.map((place) => <option key={place.value} value={place.value} />)}
-          </datalist>
         </label>
         <label>
           Categoria
-          <select name="categoria" defaultValue={f.category}>
-            <option value="">Todas</option>
-            {categories.map((c) => (
-              <option key={c.slug} value={c.slug}>
-                {c.label}
-              </option>
-            ))}
-          </select>
+          <FormSelect
+            name="categoria"
+            label="Categoria"
+            defaultValue={f.category}
+            options={[
+              { value: "", label: "Todas as categorias" },
+              ...categories.map((c) => ({ value: c.slug, label: c.label })),
+            ]}
+          />
         </label>
         <label>
           Preço máximo (MZN)
@@ -125,11 +130,16 @@ export default async function Offers({
         </label>
         <label>
           Ordenar
-          <select name="ordem" defaultValue={f.order}>
-            <option value="recentes">Mais recentes</option>
-            <option value="preco_asc">Menor preço</option>
-            <option value="preco_desc">Maior preço</option>
-          </select>
+          <FormSelect
+            name="ordem"
+            label="Ordenar"
+            defaultValue={f.order}
+            options={[
+              { value: "recentes", label: "Mais recentes" },
+              { value: "preco_asc", label: "Menor preço" },
+              { value: "preco_desc", label: "Maior preço" },
+            ]}
+          />
         </label>
         <Button>
           <Search size={18} aria-hidden="true" />

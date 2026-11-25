@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 type Photo = { id: string; alt: string; position: number };
 export function ListingOperations({
   id,
@@ -32,6 +33,7 @@ export function ListingOperations({
   );
   const [pending, setPending] = useState(false),
     [message, setMessage] = useState("");
+  const [confirmArchive, setConfirmArchive] = useState(false);
   const router = useRouter();
   function move(index: number, delta: number) {
     setItems((old) => {
@@ -175,14 +177,7 @@ export function ListingOperations({
           <Button
             variant="outline"
             disabled={pending}
-            onClick={() => {
-              if (
-                window.confirm(
-                  "Arquivar esta oferta? Deixará de receber novos pedidos. As reservas existentes serão mantidas.",
-                )
-              )
-                void run("archive");
-            }}
+            onClick={() => setConfirmArchive(true)}
           >
             <Archive size={18} />
             Arquivar oferta
@@ -199,6 +194,14 @@ export function ListingOperations({
           {message}
         </p>
       )}
+      <ConfirmDialog
+        open={confirmArchive}
+        onOpenChange={setConfirmArchive}
+        title="Arquivar esta oferta?"
+        description="A oferta deixará de receber novos pedidos. As reservas existentes continuam disponíveis para acompanhamento."
+        confirmLabel="Arquivar oferta"
+        onConfirm={() => void run("archive")}
+      />
     </section>
   );
 }

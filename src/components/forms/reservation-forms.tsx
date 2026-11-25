@@ -2,6 +2,7 @@
 import { useActionState, useState } from "react";
 import { CalendarPlus, Send, LoaderCircle, ClipboardCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FormSelect } from "@/components/ui/form-select";
 import {
   closeSlot,
   createSlot,
@@ -32,14 +33,15 @@ export function AvailabilityForm({
     <form action={action} className="account-form">
       <label>
         Oferta
-        <select name="listingId" required>
-          <option value="">Selecciona a oferta</option>
-          {listings.map((l) => (
-            <option value={l.id} key={l.id}>
-              {l.title}
-            </option>
-          ))}
-        </select>
+        <FormSelect
+          name="listingId"
+          label="Oferta"
+          required
+          options={[
+            { value: "", label: "Selecciona a oferta" },
+            ...listings.map((l) => ({ value: l.id, label: l.title })),
+          ]}
+        />
       </label>
       {event && (
         <label>
@@ -120,24 +122,24 @@ export function ReservationRequestForm({
       <input type="hidden" name="requestKey" value={requestKey} />
       <label>
         Período
-        <select
+        <FormSelect
           name="slotId"
+          label="Período"
           required
           value={selected}
-          onChange={(e) => {
-            setSelected(e.target.value);
+          onValueChange={(value) => {
+            setSelected(value);
             setQuantity(1);
           }}
-        >
-          <option value="">Selecciona</option>
-          {periods.map((p) => (
-            <option key={p.id} value={p.id} disabled={p.remaining < 1}>
-              {p.category_name ? p.category_name + " · " : ""}
-              {formatPeriod(p.starts_at)} — {formatPeriod(p.ends_at)} ·{" "}
-              {p.remaining} vagas
-            </option>
-          ))}
-        </select>
+          options={[
+            { value: "", label: "Selecciona" },
+            ...periods.map((p) => ({
+              value: p.id,
+              label: `${p.category_name ? p.category_name + " · " : ""}${formatPeriod(p.starts_at)} — ${formatPeriod(p.ends_at)} · ${p.remaining} vagas`,
+              disabled: p.remaining < 1,
+            })),
+          ]}
+        />
       </label>
       <label>
         Quantidade de unidades
@@ -201,20 +203,25 @@ export function ReservationDecisionForm({
       <input type="hidden" name="reservationId" value={id} />
       <label>
         Acção
-        <select name="decision" required>
-          <option value="">Selecciona</option>
-          {choices.map((c) => (
-            <option key={c} value={c}>
-              {c === "confirmed"
-                ? "Confirmar reserva"
-                : c === "rejected"
-                  ? "Recusar pedido"
-                  : c === "cancelled"
-                    ? "Cancelar reserva"
-                    : reservationLabels[c]}
-            </option>
-          ))}
-        </select>
+        <FormSelect
+          name="decision"
+          label="Acção"
+          required
+          options={[
+            { value: "", label: "Selecciona" },
+            ...choices.map((c) => ({
+              value: c,
+              label:
+                c === "confirmed"
+                  ? "Confirmar reserva"
+                  : c === "rejected"
+                    ? "Recusar pedido"
+                    : c === "cancelled"
+                      ? "Cancelar reserva"
+                      : reservationLabels[c],
+            })),
+          ]}
+        />
       </label>
       <label>
         Justificação (visível ao cliente e parceiro)

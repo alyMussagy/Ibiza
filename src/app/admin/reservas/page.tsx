@@ -5,6 +5,7 @@ import { requireAdmin } from "@/features/auth/session";
 import { AdminNav, AdminPagination } from "@/components/admin/navigation";
 import { ReservationCard } from "@/components/marketplace/reservation-card";
 import { Button } from "@/components/ui/button";
+import { FormSelect } from "@/components/ui/form-select";
 import {
   adminPage,
   adminSearch,
@@ -62,14 +63,18 @@ export default async function AdminReservations({
         </label>
         <label>
           Estado
-          <select name="estado" defaultValue={status}>
-            <option value="">Todos</option>
-            {Object.entries(reservationLabels).map(([value, label]) => (
-              <option value={value} key={value}>
-                {label}
-              </option>
-            ))}
-          </select>
+          <FormSelect
+            name="estado"
+            label="Estado"
+            defaultValue={status}
+            options={[
+              { value: "", label: "Todos" },
+              ...Object.entries(reservationLabels).map(([value, label]) => ({
+                value,
+                label,
+              })),
+            ]}
+          />
         </label>
         <label>
           Início da reserva desde
