@@ -28,6 +28,7 @@ export function AuthShell({
           alt={isRegister ? "Praia de Vilanculos, em Inhambane" : "Praia do Tofo, em Inhambane"}
           fill
           priority
+          quality={90}
           sizes="(max-width: 760px) 100vw, 50vw"
         />
         <div className="account-story-shade" />
