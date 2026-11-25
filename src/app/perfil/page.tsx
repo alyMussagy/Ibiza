@@ -17,6 +17,7 @@ import { ProfileForm } from "@/components/forms/profile-form";
 import { requireUser } from "@/features/auth/session";
 import { logoutAction } from "@/features/auth/actions";
 import { Button } from "@/components/ui/button";
+import { adminUrl } from "@/features/admin/url";
 export const metadata = { title: "A minha conta" };
 export default async function Profile({
   searchParams,
@@ -178,11 +179,11 @@ export default async function Profile({
             </span>
             <h2>Administração</h2>
             <Button asChild variant="outline">
-              <Link href="/admin">
+              <a href={adminUrl("/")}>
                 <ShieldCheck size={18} aria-hidden="true" />
                 Abrir painel administrativo
                 <ArrowUpRight size={16} aria-hidden="true" />
-              </Link>
+              </a>
             </Button>
           </article>
         )}

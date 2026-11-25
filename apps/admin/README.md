@@ -20,4 +20,4 @@ Criar um segundo projeto Vercel a partir do mesmo repositório GitHub, com:
 
 Não usar a chave `service_role` no navegador ou nas variáveis públicas. A aplicação utiliza a chave publicável e confirma o papel de administrador no servidor; o Supabase continua a impor as políticas RLS. A conta administradora inicia uma sessão separada no domínio do painel. Nenhuma migração SQL é necessária para esta divisão.
 
-Depois de obter o domínio do painel, actualizar o link administrativo do site público e testar as cinco áreas com a conta administradora. Manter a rota antiga `/admin` no site público durante a transição; retirá-la quando o painel publicado estiver validado.
+O painel está publicado em `https://ibiza-admin-blue.vercel.app`. O site público encaminha a entrada de administração e os endereços antigos `/admin` para este domínio. Testar as cinco áreas com a conta administradora depois de iniciar sessão no painel.
