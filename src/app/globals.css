@@ -694,6 +694,30 @@ p {
   font-size: 25px;
   margin: 35px 0 15px;
 }
+.privacy-page p {
+  max-width: 760px;
+  line-height: 1.7;
+}
+.privacy-page a,
+.auth-privacy a {
+  color: #c91c47;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.privacy-page a:focus-visible,
+.auth-privacy a:focus-visible {
+  outline: 2px solid #c91c47;
+  outline-offset: 3px;
+}
+.privacy-return {
+  margin-top: 44px;
+}
+.account-panel > .auth-privacy {
+  margin-top: 18px;
+  font-size: 12px;
+  line-height: 1.6;
+}
 .skeleton {
   height: 340px;
   background: #f7f7f7;

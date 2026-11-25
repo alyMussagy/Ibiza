@@ -59,6 +59,12 @@ export function AuthShell({
             </form>
           </div>
         )}
+        {(mode === "login" || mode === "register") && (
+          <p className="auth-privacy">
+            Descobre como usamos os teus dados na nossa{" "}
+            <Link href="/privacidade">página de privacidade</Link>.
+          </p>
+        )}
         <div className="account-links">
           {mode === "login" ? (
             <>

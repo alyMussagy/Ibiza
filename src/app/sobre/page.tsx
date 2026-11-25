@@ -1,3 +1,4 @@
+import Link from "next/link";
 export const metadata = { title: "Sobre o projecto" };
 export default function About() {
   return (
@@ -10,22 +11,15 @@ export default function About() {
       </p>
       <h2>O que podes fazer agora</h2>
       <p>
-        Explorar uma prévia visual, pesquisar exemplos e conhecer as categorias.
-        Não existem ofertas comerciais activas, reservas, pagamentos ou bilhetes
-        nesta versão.
+        Explorar destinos e categorias, criar uma conta e conhecer as ofertas
+        publicadas. As opções de reserva dependem da disponibilidade de cada
+        parceiro. Algumas páginas ainda apresentam conteúdo ilustrativo.
       </p>
       <h2 id="privacidade">Privacidade nesta versão</h2>
       <p>
-        Quando o acesso a contas estiver activado, o registo guarda o teu nome e
-        email; as palavras-passe são geridas pelo Supabase Auth. As candidaturas
-        guardam os dados de contacto e a descrição do negócio para análise pela
-        equipa IBIZA. Os contactos empresariais só são acessíveis aos membros do
-        negócio e à administração. Não recolhemos dados de pagamento. Não
-        incluímos ferramentas de publicidade ou análise de visitantes. As
-        pesquisas aparecem no endereço da página; evita introduzir dados
-        pessoais. O servidor pode gerar registos técnicos de acesso. A política
-        completa e o canal de exercício de direitos serão disponibilizados antes
-        do lançamento público.
+        Consulta a nossa <Link href="/privacidade">página de privacidade</Link>
+        para saberes que dados usamos, como funciona a entrada com Google e
+        como nos contactar.
       </p>
       <h2>Fotografia e redes sociais</h2>
       <p>

@@ -19,7 +19,7 @@ export function Footer() {
           <strong>Faz parte do IBIZA</strong>
           <Link href="/business">Para parceiros</Link>
           <Link href="/sobre">Sobre o projecto</Link>
-          <Link href="/sobre#privacidade">Privacidade nesta versão</Link>
+          <Link href="/privacidade">Privacidade</Link>
         </div>
       </div>
       <div className="shell footer-bottom">
