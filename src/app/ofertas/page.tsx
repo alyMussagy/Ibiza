@@ -11,6 +11,7 @@ import { createServerSupabase, hasSupabaseConfig } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { OfferCard } from "@/components/marketplace/offer-card";
 import { categories } from "@/features/listings/catalog";
+import { localities } from "@/features/listings/localities";
 import {
   offerFilters,
   offersHref,
@@ -35,7 +36,11 @@ export default async function Offers({
     .eq("organizations.approval", "approved");
   if (f.q) query = query?.or(`title.ilike.%${f.q}%,description.ilike.%${f.q}%`);
   if (f.category) query = query?.eq("category", f.category);
-  if (f.location) query = query?.ilike("location", `%${f.location}%`);
+  if (f.location === "Vilanculos") {
+    query = query?.or("location.ilike.%Vilanculos%,location.ilike.%Vilankulo%");
+  } else if (f.location) {
+    query = query?.ilike("location", `%${f.location}%`);
+  }
   if (f.maximum !== null) query = query?.lte("price_minor", f.maximum);
   query =
     f.order === "recentes"
@@ -91,7 +96,11 @@ export default async function Offers({
             defaultValue={f.location}
             maxLength={80}
             placeholder="Tofo, Barra, Vilanculos…"
+            list="offer-localities"
           />
+          <datalist id="offer-localities">
+            {localities.map((place) => <option key={place.value} value={place.value} />)}
+          </datalist>
         </label>
         <label>
           Categoria

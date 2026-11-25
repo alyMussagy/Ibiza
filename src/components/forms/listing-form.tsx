@@ -3,6 +3,7 @@ import { useActionState } from "react";
 import { Save, Send, LoaderCircle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { saveListing, reviewListing } from "@/features/listings/actions";
+import { localities } from "@/features/listings/localities";
 export type EditableListing = {
   id: string;
   organization_id: string;
@@ -72,7 +73,11 @@ export function ListingForm({
           maxLength={120}
           required
           placeholder="Ex.: Tofo, Inhambane"
+          list="listing-localities"
         />
+        <datalist id="listing-localities">
+          {localities.map((place) => <option key={place.value} value={place.value} />)}
+        </datalist>
       </label>
       <label>
         Descrição

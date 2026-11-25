@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import { hasSupabaseConfig } from "@/lib/supabase/server";
 import { AuthForm, type AuthMode } from "@/components/forms/auth-form";
 import { googleAuthAction } from "@/features/auth/actions";
@@ -17,22 +19,43 @@ export function AuthShell({
   notice?: string;
 }) {
   const enabled = hasSupabaseConfig();
+  const isRegister = mode === "register";
   return (
     <main id="main" className="shell account-page">
       <section className="account-story">
-        <span className="eyebrow coral">O TEU PRÓXIMO CAPÍTULO</span>
-        <h1>
-          Mais perto
-          <br />
-          do que te faz bem.
-        </h1>
-        <p>
-          Uma conta para descobrires Inhambane e fazeres parte da comunidade
-          IBIZA.
-        </p>
-        <Link href="/ofertas" className="text-link">
-          Continua a explorar →
-        </Link>
+        <Image
+          src={isRegister ? "/images/auth-vilankulo.webp" : "/images/auth-tofo.webp"}
+          alt={isRegister ? "Praia de Vilanculos, em Inhambane" : "Praia do Tofo, em Inhambane"}
+          fill
+          priority
+          sizes="(max-width: 760px) 100vw, 50vw"
+        />
+        <div className="account-story-shade" />
+        <div className="account-story-content">
+          <span className="eyebrow">O TEU PRÓXIMO CAPÍTULO</span>
+          <h1>
+            Mais perto
+            <br />
+            do que te faz bem.
+          </h1>
+          <p>Inhambane espera por ti. Guarda os lugares e experiências que queres viver.</p>
+          <Link href="/ofertas" className="account-story-link">
+            Explorar ofertas <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
+        <div className="account-story-bottom">
+          <span><MapPin size={16} aria-hidden="true" /> {isRegister ? "Vilanculos" : "Praia do Tofo"} · Inhambane</span>
+          <span className="account-story-credit">
+            Foto: {isRegister ? "Tom Corser" : "Erik Cleves Kristensen"} ·{" "}
+            <a
+              href={isRegister ? "https://commons.wikimedia.org/wiki/File:Vilaculos_beach_Mozambique.jpg" : "https://commons.wikimedia.org/wiki/File:Praia_do_Tofo_Moz_view_2008.jpg"}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {isRegister ? "CC BY-SA 3.0" : "CC BY 2.0"}
+            </a>
+          </span>
+        </div>
       </section>
       <section className="account-panel">
         <span className="eyebrow coral">IBIZA · A TUA CONTA</span>

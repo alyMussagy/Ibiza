@@ -4,7 +4,8 @@ test("homepage, pesquisa e detalhe editorial", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "Há lugares",
   );
-  await page.getByLabel("Para onde vamos?").fill("Tofo");
+  await page.getByRole("button", { name: "Para onde vamos?: Toda Inhambane" }).click();
+  await page.getByRole("option", { name: "Praia do Tofo" }).click();
   await page.getByRole("button", { name: "Explorar", exact: true }).click();
   await expect(page).toHaveURL(/ofertas.*local=Tofo/);
   await expect(
@@ -25,8 +26,9 @@ test("filtros, estado vazio e recuperação", async ({ page }) => {
   ).toBeVisible();
   await page.getByRole("link", { name: "Limpar pesquisa" }).click();
   await expect(page).toHaveURL("/explorar");
-  await expect(page.getByLabel("Para onde vamos?")).toHaveValue("");
-  await page.getByLabel("O que queres descobrir?").selectOption("eventos");
+  await expect(page.getByRole("button", { name: "Para onde vamos?: Toda Inhambane" })).toBeVisible();
+  await page.getByRole("button", { name: "O que queres descobrir?: Todas as experiências" }).click();
+  await page.getByRole("option", { name: "Eventos" }).click();
   await page.getByRole("button", { name: "Explorar", exact: true }).click();
   await expect(page).toHaveURL(/ofertas.*categoria=eventos/);
 });

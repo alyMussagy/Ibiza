@@ -1787,3 +1787,53 @@ a.bg-primary {
 
 .photo-editor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1rem;margin:1.5rem 0}.photo-editor-grid article{padding:1rem;border:1px solid #e5e5e5;border-radius:18px}
 
+/* Search controls shared by the homepage and the discovery page. */
+.search-form { position: relative; z-index: 3; gap: 0; padding: 10px 12px; isolation: isolate; }
+.search-choice { position: relative; display: flex; align-items: center; gap: 15px; min-width: 0; flex: 1 1 0; padding: 10px 22px; color: #c91c47; }
+.search-choice + .search-choice { border-left: 1px solid #e7e4e4; }
+.search-choice-content { min-width: 0; flex: 1; }
+.search-choice-label { display: block; margin-bottom: 5px; color: #222; font-size: 11px; font-weight: 700; }
+.search-choice-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 0; border: 0; background: transparent; color: #5b5b5b; font: inherit; font-size: 14px; text-align: left; cursor: pointer; }
+.search-choice-trigger svg { flex: none; color: #c91c47; transition: transform .18s ease; }
+.search-choice-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.search-choice-trigger:focus-visible { outline: 2px solid #c91c47; outline-offset: 4px; border-radius: 4px; }
+.search-choice-menu { position: absolute; z-index: 20; top: calc(100% + 15px); left: 0; width: min(330px, 85vw); max-height: 340px; overflow-y: auto; padding: 8px; border: 1px solid #eadfe2; border-radius: 16px; background: #fff; box-shadow: 0 18px 55px rgb(40 20 28 / 16%); }
+.search-choice-menu button { display: flex; width: 100%; justify-content: space-between; align-items: center; min-height: 45px; padding: 10px 13px; border: 0; border-radius: 9px; background: transparent; color: #24212a; font: inherit; font-size: 14px; text-align: left; cursor: pointer; }
+.search-choice-menu button:hover, .search-choice-menu button.is-active { background: #fff0f3; color: #b71640; }
+.search-choice-menu button:focus-visible { outline: 2px solid #c91c47; outline-offset: -2px; }
+.search-choice-menu button[aria-selected="true"] { font-weight: 700; }
+.search-choice-menu button svg { color: #c91c47; }
+.search-form > button { flex: none; min-height: 54px; }
+
+/* Real landscapes for the account entry pages. */
+.account-page { gap: 48px; padding-top: 48px; align-items: stretch; }
+.account-story { position: relative; overflow: hidden; background: #21404c; padding: 48px 42px; min-height: 610px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; }
+.account-story > img { object-fit: cover; object-position: center; }
+.account-story-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(12 32 44 / 64%) 0%, rgb(9 26 36 / 25%) 48%, rgb(10 23 28 / 78%) 100%); }
+.account-story-content, .account-story-bottom { position: relative; z-index: 1; }
+.account-story .eyebrow, .account-story p { color: #fff; }
+.account-story h1 { max-width: 500px; }
+.account-story p { max-width: 420px; font-size: 16px; line-height: 1.6; }
+.account-story-link { display: inline-flex; align-items: center; gap: 8px; color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 7px; }
+.account-story-link:hover { color: #ffd7e1; }
+.account-story-link:focus-visible, .account-story-credit a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.account-story-bottom { display: flex; align-items: end; justify-content: space-between; gap: 20px; font-size: 12px; }
+.account-story-bottom > span:first-child { display: inline-flex; align-items: center; gap: 6px; font-weight: 650; }
+.account-story-credit { text-align: right; color: #f3f3f3; font-size: 10px; }
+.account-story-credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+@media (max-width: 760px) {
+  .search-form { gap: 6px; }
+  .search-choice { flex-basis: 100%; padding: 8px 2px; }
+  .search-choice + .search-choice { border: 0; border-top: 1px solid #e7e4e4; padding-top: 15px; }
+  .search-choice-menu button { padding: 10px 13px; }
+  .search-form > button { width: 100%; justify-content: center; }
+  .account-story { min-height: 380px; padding: 30px; }
+  .account-story h1 { font-size: 34px; }
+  .account-story-bottom { flex-direction: column; align-items: start; gap: 7px; }
+  .account-story-credit { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-choice-trigger svg { transition: none; }
+}
